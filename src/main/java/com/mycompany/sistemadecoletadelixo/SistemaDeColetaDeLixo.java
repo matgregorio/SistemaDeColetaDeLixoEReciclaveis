@@ -5,6 +5,8 @@
 
 package com.mycompany.sistemadecoletadelixo;
 
+import model.lixeiros;
+
 /**
  *
  * @author mateus
@@ -12,6 +14,14 @@ package com.mycompany.sistemadecoletadelixo;
 public class SistemaDeColetaDeLixo {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        lixeiros l = new lixeiros();
+        
+        // So para testar as classes abstratas
+        System.out.println("Imprimindo dados");
+        System.out.println(l.getCpf());
+        System.out.println(l.getDataNascimento());
+        System.out.println(l.getNome());
+        System.out.println(l.getRemuneracaoMensal());
+        System.out.println(l.getDataNascimento());
     }
 }
