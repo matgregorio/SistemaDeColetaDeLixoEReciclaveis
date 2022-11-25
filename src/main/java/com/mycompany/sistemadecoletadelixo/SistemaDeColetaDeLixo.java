@@ -22,6 +22,5 @@ public class SistemaDeColetaDeLixo {
         System.out.println(l.getDataNascimento());
         System.out.println(l.getNome());
         System.out.println(l.getRemuneracaoMensal());
-        System.out.println(l.getDataNascimento());
     }
 }

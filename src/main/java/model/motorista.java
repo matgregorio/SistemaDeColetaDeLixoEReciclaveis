@@ -4,14 +4,10 @@
  */
 package model;
 
-import java.util.Date;
-
 /**
  *
  * @author mateus
  */
-public class lixeiros extends funcionario{
-    public lixeiros(){
-        super();
-    }
+public class motorista extends funcionario{
+    
 }

@@ -10,6 +10,10 @@ package model;
  */
 abstract public class funcionario extends pessoa{
     private double remuneracaoMensal;
+    
+    funcionario(){
+        this.remuneracaoMensal = 0.0;
+    }
 
     /**
      * @return the remuneracaoMensal

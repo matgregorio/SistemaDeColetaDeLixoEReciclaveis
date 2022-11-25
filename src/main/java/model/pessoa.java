@@ -11,12 +11,21 @@ import java.util.Date;
  * @author mateus
  */
 abstract public class pessoa {
+    private int id;
     private String nome;
     private String cpf;
     private String email;
     private String sexo;
     private Date dataNascimento;
-
+    
+    pessoa(){
+        this.id = 0;
+        this.nome = "oi";
+        this.cpf = "123";
+        this.email = "@gmail.com";
+        this.sexo = "masculino";
+        this.dataNascimento = new Date();
+    }
     /**
      * @return the nome
      */
