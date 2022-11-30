@@ -83,12 +83,12 @@
                           <Group type="102" attributes="0">
                               <Component id="lblFim" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jFimHora" pref="0" max="32767" attributes="0"/>
+                              <Component id="edtFimHora" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="lblInicio" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jInicioHora" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="edtInicioHora" min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -96,12 +96,12 @@
                           <Group type="102" attributes="0">
                               <Component id="lblHoras" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jInicioMin" min="-2" max="-2" attributes="0"/>
+                              <Component id="edtInicioMin" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="lblHoras1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jFimMin" min="-2" max="-2" attributes="0"/>
+                              <Component id="edtFimMin" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -172,8 +172,8 @@
                           <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="edtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblInicio" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jInicioHora" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jInicioMin" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="edtInicioHora" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="edtInicioMin" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblHoras" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblMinutos" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -189,8 +189,8 @@
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblFim" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jFimHora" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jFimMin" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="edtFimHora" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="edtFimMin" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblHoras1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblMinutos1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -375,20 +375,20 @@
         <Property name="text" type="java.lang.String" value="Fim"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jInicioHora">
+    <Component class="javax.swing.JComboBox" name="edtInicioHora">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jInicioHoraActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="edtInicioHoraActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jInicioMin">
+    <Component class="javax.swing.JComboBox" name="edtInicioMin">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jFimHora">
+    <Component class="javax.swing.JComboBox" name="edtFimHora">
       <Properties>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[72, 22]"/>
@@ -398,7 +398,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jFimMin">
+    <Component class="javax.swing.JComboBox" name="edtFimMin">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

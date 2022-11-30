@@ -31,27 +31,85 @@ public class FrCadLixeiro extends javax.swing.JFrame {
         this.atualizarTabela(grdLixeiro);
         PreencheHoras();
         PreencheMinutos();
+        DesabilitarCampos();
     }
     
+    public void DesabilitarCampos(){
+        edtNome.setEnabled(false);
+        edtEmail.setEnabled(false);
+        edtInicioHora.setEnabled(false);
+        edtInicioMin.setEnabled(false);
+        edtFimHora.setEnabled(false);
+        edtFimMin.setEnabled(false);
+        edtCpf.setEnabled(false);
+        edtSexo.setEnabled(false);
+        edtSegunda.setEnabled(false);
+        edtTerca.setEnabled(false);
+        edtQuarta.setEnabled(false);
+        edtQuinta.setEnabled(false);
+        edtSexta.setEnabled(false);
+        edtSabado.setEnabled(false);
+        edtDomingo.setEnabled(false);
+        edtRemuneracao.setEnabled(false);
+        edtDataNascimento.setEnabled(false);
+    }
+    
+    public void LimparCampos(){
+        edtNome.setText("");
+        edtEmail.setText("");
+        edtInicioHora.setSelectedIndex(0);
+        edtInicioMin.setSelectedIndex(0);
+        edtFimHora.setSelectedIndex(0);
+        edtFimMin.setSelectedIndex(0);
+        edtCpf.setText("");
+        edtSexo.setText("");
+        edtSegunda.setState(false);
+        edtTerca.setState(false);
+        edtQuarta.setState(false);
+        edtQuinta.setState(false);
+        edtSexta.setState(false);
+        edtSabado.setState(false);
+        edtDomingo.setState(false);
+        edtDataNascimento.setEnabled(false);
+    }
+    public void HabilitarCampos(){
+        edtNome.setEnabled(true);
+        edtEmail.setEnabled(true);
+        edtInicioHora.setEnabled(true);
+        edtInicioMin.setEnabled(true);
+        edtFimHora.setEnabled(true);
+        edtFimMin.setEnabled(true);
+        edtCpf.setEnabled(true);
+        edtSexo.setEnabled(true);
+        edtSegunda.setEnabled(true);
+        edtTerca.setEnabled(true);
+        edtQuarta.setEnabled(true);
+        edtQuinta.setEnabled(true);
+        edtSexta.setEnabled(true);
+        edtSabado.setEnabled(true);
+        edtDomingo.setEnabled(true);
+        edtRemuneracao.setEnabled(true);
+        edtDataNascimento.setEnabled(true);
+    }
     public void PreencheMinutos(){
         for(int i = 0; i <= 59; i++){
             if(i <= 9){
-              jInicioMin.addItem("0" + Integer.toString(i));
-              jFimMin.addItem("0" + Integer.toString(i));
+              edtInicioMin.addItem("0" + Integer.toString(i));
+              edtFimMin.addItem("0" + Integer.toString(i));
             }else{
-            jInicioMin.addItem(Integer.toString(i));
-            jFimMin.addItem(Integer.toString(i));
+            edtInicioMin.addItem(Integer.toString(i));
+            edtFimMin.addItem(Integer.toString(i));
             }
         }
     }
     public void PreencheHoras(){
        for(int i = 0; i <= 24; i++){
            if(i <= 9){
-               jInicioHora.addItem("0" + Integer.toString(i));
-               jFimHora.addItem("0" + Integer.toString(i));
+               edtInicioHora.addItem("0" + Integer.toString(i));
+               edtFimHora.addItem("0" + Integer.toString(i));
            }else{
-           jInicioHora.addItem(Integer.toString(i));
-           jFimHora.addItem(Integer.toString(i));
+           edtInicioHora.addItem(Integer.toString(i));
+           edtFimHora.addItem(Integer.toString(i));
            }
        }
     }
@@ -91,10 +149,10 @@ public class FrCadLixeiro extends javax.swing.JFrame {
         lblJornadaDeTrabalho = new javax.swing.JLabel();
         lblInicio = new javax.swing.JLabel();
         lblFim = new javax.swing.JLabel();
-        jInicioHora = new javax.swing.JComboBox<>();
-        jInicioMin = new javax.swing.JComboBox<>();
-        jFimHora = new javax.swing.JComboBox<>();
-        jFimMin = new javax.swing.JComboBox<>();
+        edtInicioHora = new javax.swing.JComboBox<>();
+        edtInicioMin = new javax.swing.JComboBox<>();
+        edtFimHora = new javax.swing.JComboBox<>();
+        edtFimMin = new javax.swing.JComboBox<>();
         edtDataNascimento = new com.toedter.calendar.JDateChooser();
         lblDataNascimento = new javax.swing.JLabel();
         lblHoras = new javax.swing.JLabel();
@@ -195,13 +253,13 @@ public class FrCadLixeiro extends javax.swing.JFrame {
 
         lblFim.setText("Fim");
 
-        jInicioHora.addActionListener(new java.awt.event.ActionListener() {
+        edtInicioHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jInicioHoraActionPerformed(evt);
+                edtInicioHoraActionPerformed(evt);
             }
         });
 
-        jFimHora.setMinimumSize(new java.awt.Dimension(72, 22));
+        edtFimHora.setMinimumSize(new java.awt.Dimension(72, 22));
 
         lblDataNascimento.setText("Data de Nascimento");
 
@@ -286,21 +344,21 @@ public class FrCadLixeiro extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblFim)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jFimHora, 0, 1, Short.MAX_VALUE))
+                                .addComponent(edtFimHora, 0, 1, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblInicio)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jInicioHora, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(edtInicioHora, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblHoras)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jInicioMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(edtInicioMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblHoras1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jFimMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(edtFimMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblMinutos)
@@ -358,8 +416,8 @@ public class FrCadLixeiro extends javax.swing.JFrame {
                             .addComponent(lblEmail)
                             .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblInicio)
-                            .addComponent(jInicioHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jInicioMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edtInicioHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edtInicioMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblHoras)
                             .addComponent(lblMinutos))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -372,8 +430,8 @@ public class FrCadLixeiro extends javax.swing.JFrame {
                                 .addComponent(edtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(lblFim)
-                                .addComponent(jFimHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jFimMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(edtFimHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(edtFimMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblHoras1)
                                 .addComponent(lblMinutos1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -406,16 +464,16 @@ public class FrCadLixeiro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-        // TODO add your handling code here:
+        HabilitarCampos();        // TODO add your handling code here:
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void edtSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSexoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtSexoActionPerformed
 
-    private void jInicioHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jInicioHoraActionPerformed
+    private void edtInicioHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtInicioHoraActionPerformed
 
-    }//GEN-LAST:event_jInicioHoraActionPerformed
+    }//GEN-LAST:event_edtInicioHoraActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         ArrayList diasTrabalhados = new ArrayList();
@@ -423,10 +481,10 @@ public class FrCadLixeiro extends javax.swing.JFrame {
         System.out.println(testeData);
         Date horaInicio = new Date();
         Date horaFim = new Date();
-        horaInicio.setHours(jInicioHora.getSelectedIndex());
-        horaInicio.setMinutes(jInicioMin.getSelectedIndex());
-        horaFim.setHours(jFimHora.getSelectedIndex());
-        horaFim.setMinutes(jFimMin.getSelectedIndex());
+        horaInicio.setHours(edtInicioHora.getSelectedIndex());
+        horaInicio.setMinutes(edtInicioMin.getSelectedIndex());
+        horaFim.setHours(edtFimHora.getSelectedIndex());
+        horaFim.setMinutes(edtFimMin.getSelectedIndex());
         System.out.println("Segunda selecionada?" + edtSegunda.getState());
         System.out.println("Edt cpf" + edtCpf.getText());
         System.out.println("Tamanho edtCpf" + edtCpf.getText().length());
@@ -439,6 +497,7 @@ public class FrCadLixeiro extends javax.swing.JFrame {
         diasTrabalhados.add(edtSabado.getState());
         diasTrabalhados.add(edtDomingo.getState());
         System.out.println(diasTrabalhados);
+        LimparCampos();
         
         
         
@@ -525,6 +584,10 @@ public class FrCadLixeiro extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser edtDataNascimento;
     private java.awt.Checkbox edtDomingo;
     private javax.swing.JTextField edtEmail;
+    private javax.swing.JComboBox<String> edtFimHora;
+    private javax.swing.JComboBox<String> edtFimMin;
+    private javax.swing.JComboBox<String> edtInicioHora;
+    private javax.swing.JComboBox<String> edtInicioMin;
     private javax.swing.JTextField edtNome;
     private java.awt.Checkbox edtQuarta;
     private java.awt.Checkbox edtQuinta;
@@ -536,10 +599,6 @@ public class FrCadLixeiro extends javax.swing.JFrame {
     private java.awt.Checkbox edtTerca;
     private javax.swing.JTable grdLixeiro;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jFimHora;
-    private javax.swing.JComboBox<String> jFimMin;
-    private javax.swing.JComboBox<String> jInicioHora;
-    private javax.swing.JComboBox<String> jInicioMin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCpf;
