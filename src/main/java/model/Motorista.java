@@ -8,6 +8,6 @@ package model;
  *
  * @author mateus
  */
-public class motorista extends funcionario{
+public class Motorista extends Funcionario{
     
 }

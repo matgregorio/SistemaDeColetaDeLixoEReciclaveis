@@ -5,7 +5,8 @@
 
 package com.mycompany.sistemadecoletadelixo;
 
-import model.lixeiros;
+import model.Lixeiro;
+import view.FrCadLixeiro;
 
 /**
  *
@@ -14,13 +15,7 @@ import model.lixeiros;
 public class SistemaDeColetaDeLixo {
 
     public static void main(String[] args) {
-        lixeiros l = new lixeiros();
-        
-        // So para testar as classes abstratas
-        System.out.println("Imprimindo dados");
-        System.out.println(l.getCpf());
-        System.out.println(l.getDataNascimento());
-        System.out.println(l.getNome());
-        System.out.println(l.getRemuneracaoMensal());
+        FrCadLixeiro frLixeiro = new FrCadLixeiro();
+        frLixeiro.setVisible(true);
     }
 }

@@ -10,8 +10,8 @@ import java.util.Date;
  *
  * @author mateus
  */
-public class lixeiros extends funcionario{
-    public lixeiros(){
+public class Lixeiro extends Funcionario{
+    public Lixeiro(){
         super();
     }
 }

@@ -10,7 +10,7 @@ import java.util.Date;
  *
  * @author mateus
  */
-abstract public class pessoa {
+abstract public class Pessoa {
     private int id;
     private String nome;
     private String cpf;
@@ -18,7 +18,7 @@ abstract public class pessoa {
     private String sexo;
     private Date dataNascimento;
     
-    pessoa(){
+    Pessoa(){
         this.id = 0;
         this.nome = "oi";
         this.cpf = "123";
