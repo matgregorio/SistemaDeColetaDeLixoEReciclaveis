@@ -56,17 +56,27 @@ public class TMCadLixeiro extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int row, int col) {
-        Lixeiro lixeiro = this.lista.get(row);
-        if(col == COL_NOME){
-            return lixeiro.getNome();
-        }else if(col == COL_CPF){
-            return lixeiro.getCpf();
-        }else if(col == COL_EMAIL){
-            return lixeiro.getEmail();
-        }else if(col == COL_DATADENASCIMENTO){
-            return lixeiro.getDataNascimento();
-        }else if(col == COL_REMUNERACAOMENSAL){
-            return lixeiro.getRemuneracaoMensal();
+        Lixeiro aux = new Lixeiro();
+        if(lista.isEmpty()){
+            return aux;
+        }else{
+            aux = (Lixeiro) lista.get(row);
+        }
+        switch (col) {
+            case -1:
+                return aux;
+            case COL_NOME:
+                return aux.getNome();
+            case COL_CPF:
+                return aux.getCpf();
+            case COL_EMAIL:
+                return aux.getEmail();
+            case COL_DATADENASCIMENTO:
+                return aux.getDataNascimento();
+            case COL_REMUNERACAOMENSAL:
+                return aux.getRemuneracaoMensal();
+            default:
+                break;
         }
         return "-";
     }

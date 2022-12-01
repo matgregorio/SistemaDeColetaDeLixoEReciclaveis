@@ -5,13 +5,14 @@
 package view;
 
 import controller.TMCadLixeiro;
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Lixeiro;
 import model.valid.ValidateLixeiro;
+import org.apache.commons.mail.SimpleEmail;
 
 /**
  *
@@ -19,19 +20,21 @@ import model.valid.ValidateLixeiro;
  */
 public class FrCadLixeiro extends javax.swing.JFrame {
     ArrayList<Lixeiro> lst = new ArrayList();
+    int idPessoaEditando;
     /**
      * Creates new form FrCadFuncionario
      */
     public FrCadLixeiro() {
+        idPessoaEditando = -1;
         Lixeiro l = new Lixeiro();
         Lixeiro l1 = new Lixeiro();
         lst.add(l);
         lst.add(l1);
         initComponents();
         this.atualizarTabela(grdLixeiro);
-        PreencheHoras();
-        PreencheMinutos();
-        DesabilitarCampos();
+        this.PreencheHoras();
+        this.PreencheMinutos();
+        this.DesabilitarCampos();
     }
     
     public void DesabilitarCampos(){
@@ -185,10 +188,25 @@ public class FrCadLixeiro extends javax.swing.JFrame {
         });
 
         btnEdit.setText("Editar");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         btnDelet.setText("Excluir");
+        btnDelet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletActionPerformed(evt);
+            }
+        });
 
         btnSave.setText("Salvar");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -382,8 +400,7 @@ public class FrCadLixeiro extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(edtSabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(2, 2, 2)
-                                .addComponent(edtDomingo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(edtDomingo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(edtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
@@ -476,6 +493,8 @@ public class FrCadLixeiro extends javax.swing.JFrame {
     }//GEN-LAST:event_edtInicioHoraActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        
+        
         ArrayList diasTrabalhados = new ArrayList();
         Date testeData = edtDataNascimento.getDate();
         System.out.println(testeData);
@@ -499,6 +518,26 @@ public class FrCadLixeiro extends javax.swing.JFrame {
         System.out.println(diasTrabalhados);
         LimparCampos();
         
+        String EmailRemetente = "mailColetaDeLixo@gmail.com";
+        String senhaEmailRemetente = "qxdvdtyjaztzcjgt";
+        
+        SimpleEmail email = new SimpleEmail();
+        email.setHostName("smtp.gmail.com");
+        email.setSmtpPort(465);
+        email.setAuthentication(EmailRemetente, senhaEmailRemetente);
+        email.setSSLOnConnect(true);
+        
+        try{
+            email.setFrom(EmailRemetente);
+            email.setSubject("Seus dados de login para acessar o sistema");
+            email.setMsg("Teste inicial");
+            email.addTo(EmailRemetente);
+            email.send();
+            System.out.println("Email foi enviado com sucesso");
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         
         
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -537,6 +576,75 @@ public class FrCadLixeiro extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_edtSexoKeyTyped
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.LimparCampos();
+        this.DesabilitarCampos();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    public void preencherCampos(Lixeiro l){
+        edtNome.setText(l.getNome());
+        edtCpf.setText(l.getCpf());
+        edtDataNascimento.setDate(l.getDataNascimento());
+        edtEmail.setText(l.getEmail());
+        edtSexo.setText(l.getSexo());
+        edtRemuneracao.setText(String.valueOf(l.getRemuneracaoMensal()));
+        edtInicioHora.setSelectedIndex(l.getHoraDeEntrada().getHours());
+        edtInicioMin.setSelectedIndex(l.getHoraDeEntrada().getMinutes());
+        edtFimHora.setSelectedIndex(l.getHoraDeSaida().getHours());
+        edtFimMin.setSelectedIndex(l.getHoraDeSaida().getMinutes());
+        for(int i = 0; i < l.getDiasTrabalhados().size(); i++){
+            if((boolean)l.getDiasTrabalhados().get(i)){
+                if(i == 0){
+                    edtSegunda.setState(true);
+                }else if(i == 1){
+                    edtTerca.setState(true);
+                }else if(i == 2){
+                    edtQuarta.setState(true);
+                }else if(i == 3){
+                    edtQuinta.setState(true);
+                }else if(i == 4){
+                    edtSexta.setState(true);
+                }else if(i == 5){
+                    edtSabado.setState(true);
+                }else if(i == 6){
+                    edtDomingo.setState(true);
+                }
+            }
+        }
+        
+    }
+    private Object getObjectSelectOnGrid() {
+        int rowCliked = grdLixeiro.getSelectedRow();
+        Object obj = null;
+        if (rowCliked >= 0) {
+            obj = grdLixeiro.getModel().getValueAt(rowCliked, -1);
+        }
+        return obj;
+    }
+    
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        Lixeiro lixeiroEditando = (Lixeiro) this.getObjectSelectOnGrid();
+        
+        if(lixeiroEditando == null){
+            JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela");
+        }else{
+            this.LimparCampos();
+            this.HabilitarCampos();
+            this.preencherCampos(lixeiroEditando);
+            this.idPessoaEditando = lixeiroEditando.getId();
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDeletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletActionPerformed
+        Lixeiro lixeiroEditando = (Lixeiro) this.getObjectSelectOnGrid();
+        
+        if(lixeiroEditando == null){
+            JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela");
+        }else{
+           
+        }
+    }//GEN-LAST:event_btnDeletActionPerformed
 
     /**
      * @param args the command line arguments
