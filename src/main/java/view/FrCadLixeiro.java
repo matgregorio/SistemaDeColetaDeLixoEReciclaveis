@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.LixeiroController;
 import controller.TMCadLixeiro;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,6 +12,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Lixeiro;
+import model.exceptions.LixeiroException;
 import model.valid.ValidateLixeiro;
 import org.apache.commons.mail.SimpleEmail;
 
@@ -21,6 +23,8 @@ import org.apache.commons.mail.SimpleEmail;
 public class FrCadLixeiro extends javax.swing.JFrame {
     ArrayList<Lixeiro> lst = new ArrayList();
     int idPessoaEditando;
+    LixeiroController lixeiroController;
+    int idLixeiroEditando;
     /**
      * Creates new form FrCadFuncionario
      */
@@ -493,31 +497,35 @@ public class FrCadLixeiro extends javax.swing.JFrame {
     }//GEN-LAST:event_edtInicioHoraActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        
-        
-        ArrayList diasTrabalhados = new ArrayList();
-        Date testeData = edtDataNascimento.getDate();
-        System.out.println(testeData);
-        Date horaInicio = new Date();
-        Date horaFim = new Date();
-        horaInicio.setHours(edtInicioHora.getSelectedIndex());
-        horaInicio.setMinutes(edtInicioMin.getSelectedIndex());
-        horaFim.setHours(edtFimHora.getSelectedIndex());
-        horaFim.setMinutes(edtFimMin.getSelectedIndex());
-        System.out.println("Segunda selecionada?" + edtSegunda.getState());
-        System.out.println("Edt cpf" + edtCpf.getText());
-        System.out.println("Tamanho edtCpf" + edtCpf.getText().length());
-        System.out.println("CPF valido?" + ValidateLixeiro.validCPF(edtCpf.getText()));
-        diasTrabalhados.add(edtSegunda.getState());
-        diasTrabalhados.add(edtTerca.getState());
-        diasTrabalhados.add(edtQuarta.getState());
-        diasTrabalhados.add(edtQuinta.getState());
-        diasTrabalhados.add(edtSexta.getState());
-        diasTrabalhados.add(edtSabado.getState());
-        diasTrabalhados.add(edtDomingo.getState());
-        System.out.println(diasTrabalhados);
-        LimparCampos();
-        
+        try{
+            Date horaInicio = new Date();
+                Date horaFim = new Date();
+                horaInicio.setHours(edtInicioHora.getSelectedIndex());
+                horaInicio.setMinutes(edtInicioMin.getSelectedIndex());
+                horaFim.setHours(edtFimHora.getSelectedIndex());
+                horaFim.setMinutes(edtFimMin.getSelectedIndex());
+                ArrayList diasTrabalhados = new ArrayList();
+                diasTrabalhados.add(edtSegunda.getState());
+                diasTrabalhados.add(edtTerca.getState());
+                diasTrabalhados.add(edtQuarta.getState());
+                diasTrabalhados.add(edtQuinta.getState());
+                diasTrabalhados.add(edtSexta.getState());
+                diasTrabalhados.add(edtSabado.getState());
+                diasTrabalhados.add(edtDomingo.getState());
+                Double remuneracao = Double.parseDouble(edtRemuneracao.getText());
+            if(idLixeiroEditando > 0){
+                lixeiroController.atualizarLixeiro(idLixeiroEditando, edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, lst);
+            }else {
+                lixeiroController.cadastrarLixeiro(edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, lst);
+            }
+            
+            lixeiroController.atualizarTabela(grdLixeiro);
+            this.DesabilitarCampos();
+            this.LimparCampos();
+        }catch(LixeiroException e){
+            System.err.println(e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }     
         String EmailRemetente = "mailColetaDeLixo@gmail.com";
         String senhaEmailRemetente = "qxdvdtyjaztzcjgt";
         

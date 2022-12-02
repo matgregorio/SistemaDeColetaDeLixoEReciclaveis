@@ -4,7 +4,7 @@
  */
 package controller;
 
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Lixeiro;
 
@@ -13,7 +13,7 @@ import model.Lixeiro;
  * @author mateus
  */
 public class TMCadLixeiro extends AbstractTableModel{
-    private ArrayList<Lixeiro> lista;
+    private List<Lixeiro> lista;
     
     private final int COL_NOME = 0;
     private final int COL_CPF = 1;
@@ -21,7 +21,7 @@ public class TMCadLixeiro extends AbstractTableModel{
     private final int COL_DATADENASCIMENTO = 3;
     private final int COL_REMUNERACAOMENSAL = 4;
     
-    public TMCadLixeiro(ArrayList<Lixeiro> lstLixeiros){
+    public TMCadLixeiro(List<Lixeiro> lstLixeiros){
         lista = lstLixeiros;
     }
 
