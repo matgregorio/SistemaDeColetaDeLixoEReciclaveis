@@ -4,7 +4,6 @@
  */
 package model;
 
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,41 +16,40 @@ import lombok.Setter;
 
 /**
  *
- * @author mateus
+ * @author mateu
  */
-
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @AllArgsConstructor
 @Getter
 @Setter
-public class Motorista implements Serializable{
+
+public class Rota {
     private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
     private Integer id;
-    private String nome;
-    private String cpf;
-    private String email;
-    private String sexo;
-    private double remuneracaoMensal;
-    private Date dataNascimento;
-    private Date horaDeEntrada;
+    private String cidadeOrigem;
+    private String cidadeDestino;
+    private Integer idMaterial;
+    private Integer idMotorista;
+    private Integer idPrefeitura;
+    private Integer idLixeiro;
+    private Double qntMaterial;
     private Date horaDeSaida;
-    private String tipoCarteira;
+    private Date horaDeEntrada;
     
-    public Motorista(){
+    public Rota(){
         this.id = -1;
-        this.nome = "";
-        this.cpf = "";
-        this.email = "";
-        this.sexo = "";
-        this.remuneracaoMensal = 0.0;
-        this.dataNascimento = new Date();
-        this.horaDeEntrada = new Date();
+        this.cidadeDestino = "";
+        this.cidadeOrigem = "";
+        this.idMaterial = -1;
+        this.idPrefeitura = -1;
+        this.idLixeiro = -1;
+        this.idMotorista = -1;
         this.horaDeSaida = new Date();
-        this.tipoCarteira = "ABCDE";
+        this.horaDeEntrada = new Date();
+        this.qntMaterial = 0.0;
     }
 }

@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import model.Lixeiro;
 import model.exceptions.LixeiroException;
+import model.gerador.GeradorDeSenha;
 import model.valid.ValidateLixeiro;
 import org.apache.commons.mail.SimpleEmail;
 
@@ -22,20 +23,15 @@ import org.apache.commons.mail.SimpleEmail;
  */
 public class FrCadLixeiro extends javax.swing.JFrame {
     ArrayList<Lixeiro> lst = new ArrayList();
-    int idPessoaEditando;
     LixeiroController lixeiroController;
     int idLixeiroEditando;
     /**
      * Creates new form FrCadFuncionario
      */
     public FrCadLixeiro() {
-        idPessoaEditando = -1;
-        Lixeiro l = new Lixeiro();
-        Lixeiro l1 = new Lixeiro();
-        lst.add(l);
-        lst.add(l1);
         initComponents();
-        this.atualizarTabela(grdLixeiro);
+        lixeiroController = new LixeiroController();
+        lixeiroController.atualizarTabela(grdLixeiro);
         this.PreencheHoras();
         this.PreencheMinutos();
         this.DesabilitarCampos();
@@ -516,38 +512,20 @@ public class FrCadLixeiro extends javax.swing.JFrame {
             if(idLixeiroEditando > 0){
                 lixeiroController.atualizarLixeiro(idLixeiroEditando, edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, lst);
             }else {
-                lixeiroController.cadastrarLixeiro(edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, lst);
+                String senha = GeradorDeSenha.geradorDeSenha(); 
+                lixeiroController.cadastrarLixeiro(idLixeiroEditando,edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, senha/*, diasTrabalhados*/);
             }
             
             lixeiroController.atualizarTabela(grdLixeiro);
-            this.DesabilitarCampos();
-            this.LimparCampos();
+            
         }catch(LixeiroException e){
             System.err.println(e.getMessage());
             JOptionPane.showMessageDialog(this, e.getMessage());
-        }     
-        String EmailRemetente = "mailColetaDeLixo@gmail.com";
-        String senhaEmailRemetente = "qxdvdtyjaztzcjgt";
-        
-        SimpleEmail email = new SimpleEmail();
-        email.setHostName("smtp.gmail.com");
-        email.setSmtpPort(465);
-        email.setAuthentication(EmailRemetente, senhaEmailRemetente);
-        email.setSSLOnConnect(true);
-        
-        try{
-            email.setFrom(EmailRemetente);
-            email.setSubject("Seus dados de login para acessar o sistema");
-            email.setMsg("Teste inicial");
-            email.addTo(EmailRemetente);
-            email.send();
-            System.out.println("Email foi enviado com sucesso");
-        
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        } 
         
         
+      this.LimparCampos(); 
+      this.DesabilitarCampos();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void edtCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtCpfKeyTyped
@@ -601,25 +579,25 @@ public class FrCadLixeiro extends javax.swing.JFrame {
         edtInicioMin.setSelectedIndex(l.getHoraDeEntrada().getMinutes());
         edtFimHora.setSelectedIndex(l.getHoraDeSaida().getHours());
         edtFimMin.setSelectedIndex(l.getHoraDeSaida().getMinutes());
-        for(int i = 0; i < l.getDiasTrabalhados().size(); i++){
-            if((boolean)l.getDiasTrabalhados().get(i)){
-                if(i == 0){
-                    edtSegunda.setState(true);
-                }else if(i == 1){
-                    edtTerca.setState(true);
-                }else if(i == 2){
-                    edtQuarta.setState(true);
-                }else if(i == 3){
-                    edtQuinta.setState(true);
-                }else if(i == 4){
-                    edtSexta.setState(true);
-                }else if(i == 5){
-                    edtSabado.setState(true);
-                }else if(i == 6){
-                    edtDomingo.setState(true);
-                }
-            }
-        }
+//        for(int i = 0; i < l.getDiasTrabalhados().size(); i++){
+//            if((boolean)l.getDiasTrabalhados().get(i)){
+//                if(i == 0){
+//                    edtSegunda.setState(true);
+//                }else if(i == 1){
+//                    edtTerca.setState(true);
+//                }else if(i == 2){
+//                    edtQuarta.setState(true);
+//                }else if(i == 3){
+//                    edtQuinta.setState(true);
+//                }else if(i == 4){
+//                    edtSexta.setState(true);
+//                }else if(i == 5){
+//                    edtSabado.setState(true);
+//                }else if(i == 6){
+//                    edtDomingo.setState(true);
+//                }
+//            }
+//        }
         
     }
     private Object getObjectSelectOnGrid() {
@@ -640,7 +618,7 @@ public class FrCadLixeiro extends javax.swing.JFrame {
             this.LimparCampos();
             this.HabilitarCampos();
             this.preencherCampos(lixeiroEditando);
-            this.idPessoaEditando = lixeiroEditando.getId();
+            lixeiroEditando.getId();
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -650,7 +628,21 @@ public class FrCadLixeiro extends javax.swing.JFrame {
         if(lixeiroEditando == null){
             JOptionPane.showMessageDialog(this, "Primeiro selecione um registro na tabela");
         }else{
-           
+           try{
+               Object[] options = {"Sim", "Não"};
+               int opcao = JOptionPane.showOptionDialog(null, "Deseja mesmo excluir o lixeiro " + lixeiroEditando.getNome() + " ?",
+                       "Confirmação de exclusão", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,options, options[0]);
+               if(opcao == 0){
+                        lixeiroController.excluirLixeiro(lixeiroEditando);
+                        lixeiroController.atualizarTabela(grdLixeiro);
+                        JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso");
+               }else if(opcao == 1){
+                        JOptionPane.showMessageDialog(this, "Exclusão cancelada!");
+                        this.DesabilitarCampos();
+                }
+           }catch(LixeiroException ex){
+               JOptionPane.showMessageDialog(this, ex.getMessage());
+           }
         }
     }//GEN-LAST:event_btnDeletActionPerformed
 

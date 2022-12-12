@@ -4,22 +4,20 @@
  */
 package model.valid;
 
-
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import model.Lixeiro;
-import model.exceptions.LixeiroException;
+import model.Motorista;
+import model.exceptions.MotoristaException;
 
 /**
  *
- * @author mateus
+ * @author mateu
  */
-public class ValidateLixeiro {
-    public static boolean validCPF(String cpf){        
-        //vamos verificar o tamanho primeiro        
+public class ValidateMotorista {
+    public static boolean validCPF(String cpf){
+         //vamos verificar o tamanho primeiro        
         if(cpf.length() != 11  && cpf.length() != 14){
-            throw new LixeiroException("CPF inválido -  Tamanho inválido.");
+            throw new MotoristaException("CPF inválido -  Tamanho inválido.");
         }
         
         //Retira os caracteres deixando apenas digitos
@@ -80,41 +78,41 @@ public class ValidateLixeiro {
                 
         
         return false;
-    
     }
-    public Lixeiro validaCamposEntrada(String nome, String cpf, String email, String sexo,Date dataDeNascimento, 
-            Double remuneracaoMensal, Date horaDeEntrada, Date horaDeSaida/*, ArrayList diasTrabalhados*/){
-        Lixeiro lixeiro = new Lixeiro();
+    
+    public Motorista validaCamposEntrada(String nome, String cpf, String email, String sexo,Date dataDeNascimento, 
+            Double remuneracaoMensal, Date horaDeEntrada, Date horaDeSaida, String tipoDeCarteira/*, ArrayList diasTrabalhados*/){
+        Motorista motorista = new Motorista();
         
 //        //PARTE QUE VERIFICA CAMPO DE NOME
 //        if(nome.isEmpty()){
-//            throw new LixeiroException("ERROR - Campo vazio: 'Nome'.");
+//            throw new MotoristaException("ERROR - Campo vazio: 'Nome'.");
 //        }
-        lixeiro.setNome(nome);
+        motorista.setNome(nome);
 //        
 //        //PARTE QUE VERIFICA CAMPO DE CPF
 //        if(cpf.isEmpty()){
-//            throw new LixeiroException("ERROR - Campo vazio: 'CPF'.");
+//            throw new MotoristaException("ERROR - Campo vazio: 'CPF'.");
 //        }
-        lixeiro.setCpf(cpf);
+        motorista.setCpf(cpf);
 //        
 //        //PARTE QUE VERIFICA CAMPO DE EMAIL
 //        if(email.isEmpty()){
-//            throw new LixeiroException("ERROR - Campo vazio: 'Email'.");
+//            throw new MotoristaException("ERROR - Campo vazio: 'Email'.");
 //        }
-        lixeiro.setEmail(email);
+        motorista.setEmail(email);
 //        
 //        //PARTE QUE VERIFICA CAMPO DE SEXO
 //        if(sexo.isEmpty()){
-//            throw new LixeiroException("ERROR - Campo vazio: 'Sexo'.");
+//            throw new MotoristaException("ERROR - Campo vazio: 'Sexo'.");
 //        }
-        lixeiro.setSexo(sexo);
+        motorista.setSexo(sexo);
 //        
 //        //PARTE QUE VERIFICA REMUNERACAO MENSAL
 //        if(remuneracaoMensal.isNaN()){
-//            throw new LixeiroException("ERROR - Campo vazio: 'Remuneração Mensal'.");
+//            throw new MotoristaException("ERROR - Campo vazio: 'Remuneração Mensal'.");
 //        }
-        lixeiro.setRemuneracaoMensal(remuneracaoMensal);
+        motorista.setRemuneracaoMensal(remuneracaoMensal);
 //        
 //        //PARTE QUE VERIFICA DATA DE NASCIMENTO - PARA TRABALHAR, SERA NECESSÁRIO TER AO MENOS 18 ANOS
         Calendar dataNasc = Calendar.getInstance();
@@ -122,21 +120,24 @@ public class ValidateLixeiro {
         dataNasc.add(Calendar.YEAR, 18);
         Calendar dataAtual = Calendar.getInstance();
         if(dataNasc.before(dataAtual)){
-            throw new LixeiroException("ERROR - Data inválida: 'Favor selecionar a data de nascimento correta'");
+            throw new MotoristaException("ERROR - Data inválida: 'Favor selecionar a data de nascimento correta'");
         }
-        lixeiro.setDataNascimento(dataDeNascimento);
+        motorista.setDataNascimento(dataDeNascimento);
+        if(tipoDeCarteira.isEmpty()){
+            throw new MotoristaException("ERROR - Campo vazio: 'Tipo de carteira'");
+        }
        
         
         //PARTE QUE VERIFICA QUANTAS HORAS O FUNCIONARIO VAI TRABALHAR POR DIA
 //        int maxMinTrabalhadosDia = 480;
 //        int minTrabalhados = ((horaDeSaida.getHours() * 60) + horaDeSaida.getMinutes()) - ((horaDeEntrada.getHours() * 60) + horaDeEntrada.getMinutes());
 //        if(minTrabalhados <= 120){
-//            throw new LixeiroException("ERROR - Carga horaria inválida: Favor selecionar carga horária correta!");
+//            throw new MotoristaException("ERROR - Carga horaria inválida: Favor selecionar carga horária correta!");
 //        }else if(maxMinTrabalhadosDia < minTrabalhados){
-//            throw new LixeiroException("ERROR - Carga horaria excessiva");
+//            throw new MotoristaException("ERROR - Carga horaria excessiva");
 //        }
-        lixeiro.setHoraDeEntrada(horaDeEntrada);
-        lixeiro.setHoraDeSaida(horaDeSaida);
+        motorista.setHoraDeEntrada(horaDeEntrada);
+        motorista.setHoraDeSaida(horaDeSaida);
 //        
 //        
 //        //PARTE DOS DIAS QUE O FUNCIONARIO VAI TRABALHAR
@@ -148,12 +149,12 @@ public class ValidateLixeiro {
 //            }
 //        }
 //        if(contadorDiasTrabalhados < 2){
-//            throw new LixeiroException("ERROR - Favor registrar os dias que o lixeiro vai trabalhar!");
+//            throw new MotoristaException("ERROR - Favor registrar os dias que o lixeiro vai trabalhar!");
 //        }
-//        lixeiro.setDiasTrabalhados(diasTrabalhados);
+//        motorista.setDiasTrabalhados(diasTrabalhados);
         
         
-        return lixeiro;
+        return motorista;
         
     }
 }

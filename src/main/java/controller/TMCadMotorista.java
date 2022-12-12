@@ -7,14 +7,14 @@ package controller;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.Lixeiro;
+import model.Motorista;
 
 /**
  *
- * @author mateus
+ * @author mateu
  */
-public class TMCadLixeiro extends AbstractTableModel{
-    private List<Lixeiro> lista;
+public class TMCadMotorista extends AbstractTableModel{
+     private List<Motorista> lista;
     
     private final int COL_NOME = 0;
     private final int COL_CPF = 1;
@@ -22,8 +22,8 @@ public class TMCadLixeiro extends AbstractTableModel{
     private final int COL_DATADENASCIMENTO = 3;
     private final int COL_REMUNERACAOMENSAL = 4;
     
-    public TMCadLixeiro(List<Lixeiro> lstLixeiros){
-        lista = lstLixeiros;
+    public TMCadMotorista(List<Motorista> lstMotoristas){
+        lista = lstMotoristas;
     }
 
     @Override
@@ -57,11 +57,11 @@ public class TMCadLixeiro extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int row, int col) {
-        Lixeiro aux = new Lixeiro();
+        Motorista aux = new Motorista();
         if(lista.isEmpty()){
             return aux;
         }else{
-            aux = (Lixeiro) lista.get(row);
+            aux = (Motorista) lista.get(row);
         }
         switch (col) {
             case -1:
@@ -83,5 +83,4 @@ public class TMCadLixeiro extends AbstractTableModel{
         }
         return "-";
     }
-    
 }

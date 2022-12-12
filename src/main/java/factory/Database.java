@@ -26,7 +26,7 @@ public class Database {
     }
     
     private Database(){
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("bdColetaDeLixo");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("dbColetaDeLixo");
         this.entityManager = factory.createEntityManager();
     }
     

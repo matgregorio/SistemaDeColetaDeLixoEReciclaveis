@@ -5,52 +5,44 @@
 package model.dao;
 
 import factory.Database;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import model.Lixeiro;
+import model.Motorista;
 
 /**
  *
- * @author mateus
+ * @author mateu
  */
-public class LixeiroDao {
+public class MotoristaDao {
     EntityManager entityManager;
     
     Query qry;
     String sql;
     
-    public LixeiroDao(){
+    public MotoristaDao(){
         entityManager = Database.getInstance().getEntityManager();
     }
     
-    public void save(Lixeiro lixeiro){
+    public void save(Motorista motorista){
         this.entityManager.getTransaction().begin();
-        if(lixeiro != null && lixeiro.getId() > 0){
-           this.entityManager.merge(lixeiro);
+        if(motorista != null && motorista.getId() > 0){
+            this.entityManager.merge(motorista);
         }else{
-            this.entityManager.persist(lixeiro);
+            this.entityManager.persist(motorista);
         }
         this.entityManager.getTransaction().commit();
     }
     
-    public void delete(Lixeiro lixeiro){
+    public void delete(Motorista motorista){
         this.entityManager.getTransaction().begin();
-        this.entityManager.remove(lixeiro);
+        this.entityManager.remove(motorista);
         this.entityManager.getTransaction().commit();
     }
     
-    public int ultimoRegistro(){
-        List<Lixeiro> lst = this.findAll();
-        int tamanhoLista = lst.size() - 1;
-        Lixeiro ultimoLixeiro = lst.get(tamanhoLista);
-        return ultimoLixeiro.getId();
-    }
-    
-    public Lixeiro find(int id){
+    public Motorista find(int id){
         sql = " SELECT l "
-                + " FROM Lixeiro "
+                + " FROM Motorista "
                 + " WHERE id = :id ";
         qry = this.entityManager.createQuery(sql);
         qry.setParameter("id", id);
@@ -59,33 +51,33 @@ public class LixeiroDao {
         if(lst.isEmpty()){
             return null;
         }else{
-            return (Lixeiro) lst.get(0);
+            return (Motorista) lst.get(0);
         }              
     }
     
-    public List<Lixeiro> findAll(){
-        sql = " SELECT l "
-                + " FROM Lixeiro l ";
+    public List<Motorista> findAll(){
+        sql = " SELECT M "
+                + " FROM Motorista M ";
         qry = this.entityManager.createQuery(sql);
         
         List lst = qry.getResultList();
         
-            return (List<Lixeiro>) lst;
+        return (List<Motorista>) lst;
     }
     
-    public Lixeiro findByCpf(String email){
-        sql = " SELECT lixeiro "
-                + " FROM Lixeiro "
-                + " WHERE email like " + email;
+    public Motorista findByCpf(String cpf){
+        sql = " SELECT motorista "
+                + " FROM Motorista "
+                + " WHERE cpf like :cpf";
         qry = this.entityManager.createQuery(sql);
-        qry.setParameter("email" , email);
+        qry.setParameter("cpf" , cpf);
         
         List lst = qry.getResultList();
         
         if(lst.isEmpty()){
             return null;
         }else{
-            return (Lixeiro) lst.get(0);
+            return (Motorista) lst.get(0);
         }
     }
 }

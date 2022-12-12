@@ -17,41 +17,30 @@ import lombok.Setter;
 
 /**
  *
- * @author mateus
+ * @author mateu
  */
-
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @AllArgsConstructor
 @Getter
 @Setter
-public class Motorista implements Serializable{
+public class Prefeitura implements Serializable{
     private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     private Integer id;
-    private String nome;
-    private String cpf;
-    private String email;
-    private String sexo;
-    private double remuneracaoMensal;
-    private Date dataNascimento;
-    private Date horaDeEntrada;
-    private Date horaDeSaida;
-    private String tipoCarteira;
+    public String nome;
+    public String cnpj;
+    public String cidade;
+    public String telefone;
+    public Date dataDeCadastro;
     
-    public Motorista(){
+    public Prefeitura(){
         this.id = -1;
         this.nome = "";
-        this.cpf = "";
-        this.email = "";
-        this.sexo = "";
-        this.remuneracaoMensal = 0.0;
-        this.dataNascimento = new Date();
-        this.horaDeEntrada = new Date();
-        this.horaDeSaida = new Date();
-        this.tipoCarteira = "ABCDE";
+        this.cnpj = "";
+        this.cidade = "";
+        this.telefone = "";
+        this.dataDeCadastro = new Date();
     }
 }

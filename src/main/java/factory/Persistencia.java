@@ -19,8 +19,9 @@ public class Persistencia {
     
     private Persistencia(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdColetaDeLixo");
+            Class.forName("org.sqlite.JDBC");
+            this.connection = DriverManager.getConnection("jdbc:sqlite:bdTeste.sqlite");
+            System.out.println("CONEXAO FEITA COM SUCESSO");
         }catch(ClassNotFoundException ex){
             System.err.println("ERROR AO ABRIR CONEXAO COM O BANCO DE DADOS " + ex.toString());
         }catch(SQLException ex){

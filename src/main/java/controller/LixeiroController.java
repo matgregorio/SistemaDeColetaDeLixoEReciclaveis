@@ -11,6 +11,8 @@ import java.util.List;
 import javax.swing.JTable;
 import model.dao.LixeiroDao;
 import model.Lixeiro;
+import model.Login;
+import model.dao.LoginDao;
 import model.exceptions.LixeiroException;
 import model.valid.ValidateLixeiro;
 
@@ -20,23 +22,33 @@ import model.valid.ValidateLixeiro;
  */
 public class LixeiroController {
     private LixeiroDao repositorio;
+    private LoginDao repositorioLogin;
     
     public LixeiroController(){
         repositorio = new LixeiroDao();
+        repositorioLogin = new LoginDao();
     }
     
-    public void cadastrarLixeiro(String nome, String email,
+    public void cadastrarLixeiro(int id,String nome, String email,
             String cpf, String sexo, Date dataNascimento, 
-            Double remuneracaoMensal, Date horaInicio, Date horaFim,
-            ArrayList diasTrabalhados){
+            Double remuneracaoMensal, Date horaInicio, Date horaFim, String senha/*,
+            ArrayList diasTrabalhados/*/){
         ValidateLixeiro valid = new ValidateLixeiro();
         Lixeiro novoLixeiro = valid.validaCamposEntrada(nome, cpf, email, sexo, dataNascimento, 
-                remuneracaoMensal, horaInicio, horaFim, diasTrabalhados);
-        if(repositorio.findByCpf(novoLixeiro.getCpf()) != null){
-            throw new LixeiroException("ERROR - JA EXISTE LIXEIRO COM ESSE CPF.");
-        }else{
+                remuneracaoMensal, horaInicio, horaFim/*,diasTrabalhados*/);
+        //if(repositorio.findByCpf(novoLixeiro.getEmail()) != null){
+            //throw new LixeiroException("ERROR - JA EXISTE LIXEIRO COM ESSE CPF.");
+        //}else{
             repositorio.save(novoLixeiro);
-        }
+            int ultimoId = repositorio.ultimoRegistro();
+            Login login = new Login();
+            login.setCpf(cpf);
+            login.setSenha(senha);
+            login.setTipoDeUsuario(1);
+            login.setId_usuario(ultimoId);
+            repositorioLogin.save(login);
+            
+        //}
         
     }
     
@@ -46,7 +58,7 @@ public class LixeiroController {
             ArrayList diasTrabalhados){
             ValidateLixeiro valid = new ValidateLixeiro();
             Lixeiro novoLixeiro = valid.validaCamposEntrada(nome, cpf, email,  sexo,dataNascimento, 
-             remuneracaoMensal, horaInicio,  horaFim,  diasTrabalhados);
+             remuneracaoMensal, horaInicio,  horaFim/*,  diasTrabalhados*/);
             novoLixeiro.setId(idLixeiro);
             repositorio.save(novoLixeiro);
         
