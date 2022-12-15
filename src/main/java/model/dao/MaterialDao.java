@@ -5,52 +5,51 @@
 package model.dao;
 
 import factory.Database;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import model.Lixeiro;
+import model.Material;
 
 /**
  *
- * @author mateus
+ * @author mateu
  */
-public class LixeiroDao {
+public class MaterialDao {
     EntityManager entityManager;
     
     Query qry;
     String sql;
     
-    public LixeiroDao(){
+    public MaterialDao(){
         entityManager = Database.getInstance().getEntityManager();
     }
     
-    public void save(Lixeiro lixeiro){
+    public void save(Material material){
         this.entityManager.getTransaction().begin();
-        if(lixeiro != null && lixeiro.getId() > 0){
-           this.entityManager.merge(lixeiro);
+        if(material != null && material.getId() > 0){
+           this.entityManager.merge(material);
         }else{
-            this.entityManager.persist(lixeiro);
+            this.entityManager.persist(material);
         }
         this.entityManager.getTransaction().commit();
     }
     
-    public void delete(Lixeiro lixeiro){
+    public void delete(Material material){
         this.entityManager.getTransaction().begin();
-        this.entityManager.remove(lixeiro);
+        this.entityManager.remove(material);
         this.entityManager.getTransaction().commit();
     }
     
     public int ultimoRegistro(){
-        List<Lixeiro> lst = this.findAll();
+        List<Material> lst = this.findAll();
         int tamanhoLista = lst.size() - 1;
-        Lixeiro ultimoLixeiro = lst.get(tamanhoLista);
+        Material ultimoLixeiro = lst.get(tamanhoLista);
         return ultimoLixeiro.getId();
     }
     
-    public Lixeiro find(int id){
-        sql = " SELECT l "
-                + " FROM Lixeiro l"
+    public Material find(int id){
+        sql = " SELECT m "
+                + " FROM Material m"
                 + " WHERE id = :id ";
         qry = this.entityManager.createQuery(sql);
         qry.setParameter("id", id);
@@ -59,33 +58,33 @@ public class LixeiroDao {
         if(lst.isEmpty()){
             return null;
         }else{
-            return (Lixeiro) lst.get(0);
+            return (Material) lst.get(0);
         }              
     }
     
-    public List<Lixeiro> findAll(){
-        sql = " SELECT l "
-                + " FROM Lixeiro l ";
+    public List<Material> findAll(){
+        sql = " SELECT m "
+                + " FROM Material m ";
         qry = this.entityManager.createQuery(sql);
         
         List lst = qry.getResultList();
         
-            return (List<Lixeiro>) lst;
+            return (List<Material>) lst;
     }
     
-    public Lixeiro findByCpf(String cpf){
-        sql = " SELECT lixeiro "
-                + " FROM Lixeiro lixeiro "
-                + " WHERE cpf like :cpf ";
+    public Material findByCodigo(int codigoMaterial){
+        sql = " SELECT material "
+                + " FROM Material material "
+                + " WHERE codigoMaterial like :codigoMaterial ";
         qry = this.entityManager.createQuery(sql);
-        qry.setParameter("cpf" , cpf);
+        qry.setParameter("codigoMaterial" , codigoMaterial);
         
         List lst = qry.getResultList();
         
         if(lst.isEmpty()){
             return null;
         }else{
-            return (Lixeiro) lst.get(0);
+            return (Material) lst.get(0);
         }
     }
 }

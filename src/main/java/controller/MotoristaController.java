@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JTable;
+import model.Login;
 import model.Motorista;
 import model.dao.MotoristaDao;
 import model.exceptions.MotoristaException;
@@ -25,16 +26,22 @@ public class MotoristaController {
     }
     public void cadastrarMotorista(int id,String nome, String email,
             String cpf, String sexo, Date dataNascimento, 
-            Double remuneracaoMensal, Date horaInicio, Date horaFim, String tipoDeCarteira/*,
+            Double remuneracaoMensal, Date horaInicio, Date horaFim, String tipoDeCarteira, String senha/*,
             ArrayList diasTrabalhados/*/){
         ValidateMotorista valid = new ValidateMotorista();
         Motorista novoMotorista = valid.validaCamposEntrada(nome, cpf, email, sexo, dataNascimento, 
                 remuneracaoMensal, horaInicio, horaFim,tipoDeCarteira/*,diasTrabalhados*/);
-//        if(repositorio.findByCpf(novoMotorista.getCpf()) != null){
-//            throw new MotoristaException("ERROR - JA EXISTE MOTORISTA COM ESSE CPF.");
-//        }else{
+        if(repositorio.findByCpf(novoMotorista.getCpf()) != null){
+            throw new MotoristaException("ERROR - JA EXISTE MOTORISTA COM ESSE CPF.");
+        }else{
             repositorio.save(novoMotorista);
-        //}
+            int ultimoId = repositorio.ultimoRegistro();
+            Login login = new Login();
+            login.setCpf(cpf);
+            login.setSenha(senha);
+            login.setTipoDeUsuario(2);
+            login.setId_usuario(ultimoId);
+        }
         
     }
     

@@ -277,8 +277,6 @@ public class FrCadLixeiro extends javax.swing.JFrame {
             }
         });
 
-        edtFimHora.setMinimumSize(new java.awt.Dimension(72, 22));
-
         lblDataNascimento.setText("Data de Nascimento");
 
         lblHoras.setText("Horas");
@@ -403,7 +401,7 @@ public class FrCadLixeiro extends javax.swing.JFrame {
                                 .addComponent(edtDomingo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(edtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(edtRemuneracao, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -469,7 +467,7 @@ public class FrCadLixeiro extends javax.swing.JFrame {
                             .addComponent(edtSexta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(edtSabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(edtDomingo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(edtSegunda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -510,10 +508,10 @@ public class FrCadLixeiro extends javax.swing.JFrame {
                 diasTrabalhados.add(edtDomingo.getState());
                 Double remuneracao = Double.parseDouble(edtRemuneracao.getText());
             if(idLixeiroEditando > 0){
-                lixeiroController.atualizarLixeiro(idLixeiroEditando, edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, lst);
+                lixeiroController.atualizarLixeiro(idLixeiroEditando, edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, diasTrabalhados);
             }else {
                 String senha = GeradorDeSenha.geradorDeSenha(); 
-                lixeiroController.cadastrarLixeiro(idLixeiroEditando,edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, senha/*, diasTrabalhados*/);
+                lixeiroController.cadastrarLixeiro(idLixeiroEditando,edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, senha, diasTrabalhados);
             }
             
             lixeiroController.atualizarTabela(grdLixeiro);

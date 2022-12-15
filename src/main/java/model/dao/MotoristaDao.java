@@ -40,9 +40,16 @@ public class MotoristaDao {
         this.entityManager.getTransaction().commit();
     }
     
+    public int ultimoRegistro(){
+        List<Motorista> lst = this.findAll();
+        int tamanhoLista = lst.size() - 1;
+        Motorista ultimoMotorista = lst.get(tamanhoLista);
+        return ultimoMotorista.getId();
+    }
+    
     public Motorista find(int id){
         sql = " SELECT l "
-                + " FROM Motorista "
+                + " FROM Motorista l"
                 + " WHERE id = :id ";
         qry = this.entityManager.createQuery(sql);
         qry.setParameter("id", id);
@@ -67,7 +74,7 @@ public class MotoristaDao {
     
     public Motorista findByCpf(String cpf){
         sql = " SELECT motorista "
-                + " FROM Motorista "
+                + " FROM Motorista motorista"
                 + " WHERE cpf like :cpf";
         qry = this.entityManager.createQuery(sql);
         qry.setParameter("cpf" , cpf);

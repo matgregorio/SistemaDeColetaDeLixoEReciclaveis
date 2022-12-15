@@ -31,14 +31,14 @@ public class LixeiroController {
     
     public void cadastrarLixeiro(int id,String nome, String email,
             String cpf, String sexo, Date dataNascimento, 
-            Double remuneracaoMensal, Date horaInicio, Date horaFim, String senha/*,
-            ArrayList diasTrabalhados/*/){
+            Double remuneracaoMensal, Date horaInicio, Date horaFim, String senha,
+            ArrayList diasTrabalhados){
         ValidateLixeiro valid = new ValidateLixeiro();
         Lixeiro novoLixeiro = valid.validaCamposEntrada(nome, cpf, email, sexo, dataNascimento, 
-                remuneracaoMensal, horaInicio, horaFim/*,diasTrabalhados*/);
-        //if(repositorio.findByCpf(novoLixeiro.getEmail()) != null){
-            //throw new LixeiroException("ERROR - JA EXISTE LIXEIRO COM ESSE CPF.");
-        //}else{
+                remuneracaoMensal, horaInicio, horaFim,diasTrabalhados);
+        if(repositorio.findByCpf(novoLixeiro.getCpf()) != null){
+            throw new LixeiroException("ERROR - JA EXISTE LIXEIRO COM ESSE CPF.");
+        }else{
             repositorio.save(novoLixeiro);
             int ultimoId = repositorio.ultimoRegistro();
             Login login = new Login();
@@ -48,7 +48,7 @@ public class LixeiroController {
             login.setId_usuario(ultimoId);
             repositorioLogin.save(login);
             
-        //}
+        }
         
     }
     
@@ -58,7 +58,7 @@ public class LixeiroController {
             ArrayList diasTrabalhados){
             ValidateLixeiro valid = new ValidateLixeiro();
             Lixeiro novoLixeiro = valid.validaCamposEntrada(nome, cpf, email,  sexo,dataNascimento, 
-             remuneracaoMensal, horaInicio,  horaFim/*,  diasTrabalhados*/);
+             remuneracaoMensal, horaInicio,  horaFim,  diasTrabalhados);
             novoLixeiro.setId(idLixeiro);
             repositorio.save(novoLixeiro);
         

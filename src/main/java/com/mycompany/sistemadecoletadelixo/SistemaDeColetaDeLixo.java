@@ -17,8 +17,8 @@ import view.FrLogin;
 public class SistemaDeColetaDeLixo {
 
     public static void main(String[] args) {      
-        FrLogin frLogin = new FrLogin();
-        frLogin.setVisible(true);
+        FrCadLixeiro frLixeiro = new FrCadLixeiro();
+        frLixeiro.setVisible(true);
         
     }
 }

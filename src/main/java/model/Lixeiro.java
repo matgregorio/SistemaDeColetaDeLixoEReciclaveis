@@ -38,6 +38,13 @@ public class Lixeiro implements Serializable{
     private Date dataNascimento;
     private Date horaDeEntrada;
     private Date horaDeSaida;
+    private boolean segunda;
+    private boolean terca;
+    private boolean quarta;
+    private boolean quinta;
+    private boolean sexta;
+    private boolean sabado;
+    private boolean domingo;
     
     public Lixeiro(){
         this.id = -1;
@@ -49,5 +56,12 @@ public class Lixeiro implements Serializable{
         this.dataNascimento = new Date();
         this.horaDeEntrada = new Date();
         this.horaDeSaida = new Date();
+        this.segunda = false;
+        this.terca = false;
+        this.quarta = false;
+        this.quinta = false;
+        this.sexta = false;
+        this.sabado = false;
+        this.domingo = false;
     }
 }

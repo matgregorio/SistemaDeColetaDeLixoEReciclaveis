@@ -20,7 +20,7 @@ import lombok.Setter;
  * @author mateu
  */
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
+//@Entity
 @AllArgsConstructor
 @Getter
 @Setter
@@ -34,6 +34,7 @@ public class Prefeitura implements Serializable{
     public String cidade;
     public String telefone;
     public Date dataDeCadastro;
+    public String email;
     
     public Prefeitura(){
         this.id = -1;

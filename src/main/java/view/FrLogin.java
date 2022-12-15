@@ -116,12 +116,23 @@ public class FrLogin extends javax.swing.JFrame {
         } catch (LoginException ex) {
             Logger.getLogger(FrLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(loginNovo.getTipoDeUsuario() == 1){
+        if(loginNovo.getTipoDeUsuario() == 1){// lixeiro
             FrLixeiro telaLixeiro = new FrLixeiro();
             telaLixeiro.setVisible(true);
             this.setVisible(false);
+        }if(loginNovo.getTipoDeUsuario() == 2){// motorista
+            FrMotorista telaMotorista = new FrMotorista();
+            telaMotorista.setVisible(true);
+            this.setVisible(false);
+        }if(loginNovo.getTipoDeUsuario() == 3){//prefeitura
+            FrPrefeitura telaPrefeitura = new FrPrefeitura();
+            telaPrefeitura.setVisible(true);
+            this.setVisible(false);
+        }if(loginNovo.getTipoDeUsuario() == 4){//admin principal
+            FrCadPrefeitura frCadPrefeitura = new FrCadPrefeitura();
+            frCadPrefeitura.setVisible(true);
+            this.setVisible(false);
         }
-            System.out.println(edtSenha.getText());
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**

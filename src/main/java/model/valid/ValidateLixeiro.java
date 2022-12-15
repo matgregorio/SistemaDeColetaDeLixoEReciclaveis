@@ -83,37 +83,37 @@ public class ValidateLixeiro {
     
     }
     public Lixeiro validaCamposEntrada(String nome, String cpf, String email, String sexo,Date dataDeNascimento, 
-            Double remuneracaoMensal, Date horaDeEntrada, Date horaDeSaida/*, ArrayList diasTrabalhados*/){
+            Double remuneracaoMensal, Date horaDeEntrada, Date horaDeSaida, ArrayList diasTrabalhados){
         Lixeiro lixeiro = new Lixeiro();
         
-//        //PARTE QUE VERIFICA CAMPO DE NOME
-//        if(nome.isEmpty()){
-//            throw new LixeiroException("ERROR - Campo vazio: 'Nome'.");
-//        }
+        //PARTE QUE VERIFICA CAMPO DE NOME
+        if(nome.isEmpty()){
+            throw new LixeiroException("ERROR - Campo vazio: 'Nome'.");
+        }
         lixeiro.setNome(nome);
-//        
-//        //PARTE QUE VERIFICA CAMPO DE CPF
-//        if(cpf.isEmpty()){
-//            throw new LixeiroException("ERROR - Campo vazio: 'CPF'.");
-//        }
+        
+        //PARTE QUE VERIFICA CAMPO DE CPF
+        if(cpf.isEmpty()){
+            throw new LixeiroException("ERROR - Campo vazio: 'CPF'.");
+        }
         lixeiro.setCpf(cpf);
-//        
-//        //PARTE QUE VERIFICA CAMPO DE EMAIL
-//        if(email.isEmpty()){
-//            throw new LixeiroException("ERROR - Campo vazio: 'Email'.");
-//        }
+        
+        //PARTE QUE VERIFICA CAMPO DE EMAIL
+        if(email.isEmpty()){
+            throw new LixeiroException("ERROR - Campo vazio: 'Email'.");
+        }
         lixeiro.setEmail(email);
-//        
-//        //PARTE QUE VERIFICA CAMPO DE SEXO
-//        if(sexo.isEmpty()){
-//            throw new LixeiroException("ERROR - Campo vazio: 'Sexo'.");
-//        }
+        
+        //PARTE QUE VERIFICA CAMPO DE SEXO
+        if(sexo.isEmpty()){
+            throw new LixeiroException("ERROR - Campo vazio: 'Sexo'.");
+        }
         lixeiro.setSexo(sexo);
-//        
-//        //PARTE QUE VERIFICA REMUNERACAO MENSAL
-//        if(remuneracaoMensal.isNaN()){
-//            throw new LixeiroException("ERROR - Campo vazio: 'Remuneração Mensal'.");
-//        }
+        
+        //PARTE QUE VERIFICA REMUNERACAO MENSAL
+        if(remuneracaoMensal.isNaN()){
+            throw new LixeiroException("ERROR - Campo vazio: 'Remuneração Mensal'.");
+        }
         lixeiro.setRemuneracaoMensal(remuneracaoMensal);
 //        
 //        //PARTE QUE VERIFICA DATA DE NASCIMENTO - PARA TRABALHAR, SERA NECESSÁRIO TER AO MENOS 18 ANOS
@@ -128,29 +128,35 @@ public class ValidateLixeiro {
        
         
         //PARTE QUE VERIFICA QUANTAS HORAS O FUNCIONARIO VAI TRABALHAR POR DIA
-//        int maxMinTrabalhadosDia = 480;
-//        int minTrabalhados = ((horaDeSaida.getHours() * 60) + horaDeSaida.getMinutes()) - ((horaDeEntrada.getHours() * 60) + horaDeEntrada.getMinutes());
-//        if(minTrabalhados <= 120){
-//            throw new LixeiroException("ERROR - Carga horaria inválida: Favor selecionar carga horária correta!");
-//        }else if(maxMinTrabalhadosDia < minTrabalhados){
-//            throw new LixeiroException("ERROR - Carga horaria excessiva");
-//        }
+        int maxMinTrabalhadosDia = 480;
+        int minTrabalhados = ((horaDeSaida.getHours() * 60) + horaDeSaida.getMinutes()) - ((horaDeEntrada.getHours() * 60) + horaDeEntrada.getMinutes());
+        if(minTrabalhados <= 120){
+            throw new LixeiroException("ERROR - Carga horaria inválida: Favor selecionar carga horária correta!");
+        }else if(maxMinTrabalhadosDia < minTrabalhados){
+            throw new LixeiroException("ERROR - Carga horaria excessiva");
+        }
         lixeiro.setHoraDeEntrada(horaDeEntrada);
         lixeiro.setHoraDeSaida(horaDeSaida);
-//        
-//        
-//        //PARTE DOS DIAS QUE O FUNCIONARIO VAI TRABALHAR
-//        int contadorDiasTrabalhados = 0;
-//        for(int i = 0; i < diasTrabalhados.size(); i++){
-//            boolean tOrF = (boolean) diasTrabalhados.get(i);
-//            if(tOrF){
-//                contadorDiasTrabalhados ++;
-//            }
-//        }
-//        if(contadorDiasTrabalhados < 2){
-//            throw new LixeiroException("ERROR - Favor registrar os dias que o lixeiro vai trabalhar!");
-//        }
-//        lixeiro.setDiasTrabalhados(diasTrabalhados);
+        
+        
+        //PARTE DOS DIAS QUE O FUNCIONARIO VAI TRABALHAR
+        int contadorDiasTrabalhados = 0;
+        for(int i = 0; i < diasTrabalhados.size(); i++){
+            boolean tOrF = (boolean) diasTrabalhados.get(i);
+            if(tOrF){
+                contadorDiasTrabalhados ++;
+            }
+        }
+        if(contadorDiasTrabalhados < 2){
+            throw new LixeiroException("ERROR - Favor registrar os dias que o lixeiro vai trabalhar!");
+        }
+        lixeiro.setSegunda((boolean) diasTrabalhados.get(0));
+        lixeiro.setTerca((boolean) diasTrabalhados.get(1));
+        lixeiro.setQuarta((boolean) diasTrabalhados.get(2));
+        lixeiro.setQuinta((boolean) diasTrabalhados.get(3));
+        lixeiro.setSexta((boolean) diasTrabalhados.get(4));
+        lixeiro.setSabado((boolean) diasTrabalhados.get(5));
+        lixeiro.setDomingo((boolean) diasTrabalhados.get(6));
         
         
         return lixeiro;

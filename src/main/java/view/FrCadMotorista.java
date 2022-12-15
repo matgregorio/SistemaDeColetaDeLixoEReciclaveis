@@ -10,6 +10,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import model.Motorista;
 import model.exceptions.MotoristaException;
+import model.gerador.GeradorDeSenha;
 import org.apache.commons.mail.SimpleEmail;
 
 /**
@@ -521,7 +522,8 @@ public class FrCadMotorista extends javax.swing.JFrame {
             if(idMotoristaEditando > 0){
                 motoristaController.atualizarMotorista(idMotoristaEditando, edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, (String) edtCarteira.getSelectedItem());
             }else {
-                motoristaController.cadastrarMotorista(idMotoristaEditando, edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, (String) edtCarteira.getSelectedItem());
+                String senha = GeradorDeSenha.geradorDeSenha();
+                motoristaController.cadastrarMotorista(idMotoristaEditando, edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, (String) edtCarteira.getSelectedItem(), senha);
             }
             
             motoristaController.atualizarTabela(grdMotorista);
