@@ -178,7 +178,8 @@ public class FrCadLixeiro extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitulo.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
-        lblTitulo.setText("                                              Cadastro de Lixeiro");
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Cadastro de Lixeiro");
 
         btnNew.setText("Novo");
         btnNew.addActionListener(new java.awt.event.ActionListener() {

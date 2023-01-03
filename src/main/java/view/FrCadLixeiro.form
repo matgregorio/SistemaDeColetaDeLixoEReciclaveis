@@ -236,7 +236,8 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Liberation Sans" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="                                              Cadastro de Lixeiro"/>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Cadastro de Lixeiro"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnNew">

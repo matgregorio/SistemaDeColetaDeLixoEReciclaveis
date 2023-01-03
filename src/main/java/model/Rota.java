@@ -36,6 +36,8 @@ public class Rota {
     private Double qntMaterial;
     private Date horaDeSaida;
     private Date horaDeEntrada;
+    private Integer idMotorista;
+    private Integer idLixeiro;
     
     public Rota(){
         this.id = -1;
@@ -45,5 +47,7 @@ public class Rota {
         this.horaDeSaida = new Date();
         this.horaDeEntrada = new Date();
         this.qntMaterial = 0.0;
+        this.idMotorista = -1;
+        this.idLixeiro = -1;
     }
 }
