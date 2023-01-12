@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JTable;
 import model.Login;
 import model.Motorista;
+import model.dao.LoginDao;
 import model.dao.MotoristaDao;
 import model.exceptions.MotoristaException;
 import model.valid.ValidateMotorista;
@@ -20,9 +21,11 @@ import model.valid.ValidateMotorista;
  */
 public class MotoristaController {
     private MotoristaDao repositorio;
+    private LoginDao repositorioLogin;
     
     public MotoristaController(){
         repositorio = new MotoristaDao();
+        repositorioLogin = new LoginDao();
     }
     public void cadastrarMotorista(int id,String nome, String email,
             String cpf, String sexo, Date dataNascimento, 
@@ -40,7 +43,8 @@ public class MotoristaController {
             login.setCpf(cpf);
             login.setSenha(senha);
             login.setTipoDeUsuario(2);
-            login.setId_usuario(ultimoId);
+            login.setId_usuario(ultimoId);          
+            repositorioLogin.save(login);
         }
         
     }
@@ -59,6 +63,10 @@ public class MotoristaController {
     
     public void atualizarTabela(JTable grd){
         Util.jTableShow(grd, new TMCadMotorista((List<Motorista>) repositorio.findAll()), null);
+    }
+    
+    public List<Motorista> atualizaMotoristas(){
+        return repositorio.findAll();
     }
     
     public void excluirMotorista(Motorista motorista){

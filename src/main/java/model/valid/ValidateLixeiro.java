@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import model.Lixeiro;
+import model.Prefeitura;
 import model.exceptions.LixeiroException;
 
 /**
@@ -83,7 +84,7 @@ public class ValidateLixeiro {
     
     }
     public Lixeiro validaCamposEntrada(String nome, String cpf, String email, String sexo,Date dataDeNascimento, 
-            Double remuneracaoMensal, Date horaDeEntrada, Date horaDeSaida, ArrayList diasTrabalhados){
+            Double remuneracaoMensal, Date horaDeEntrada, Date horaDeSaida, ArrayList diasTrabalhados, Prefeitura prefeitura){
         Lixeiro lixeiro = new Lixeiro();
         
         //PARTE QUE VERIFICA CAMPO DE NOME
@@ -121,7 +122,7 @@ public class ValidateLixeiro {
         dataNasc.setTime(dataDeNascimento);
         dataNasc.add(Calendar.YEAR, 18);
         Calendar dataAtual = Calendar.getInstance();
-        if(dataNasc.before(dataAtual)){
+        if(dataNasc.compareTo(dataAtual) == 1){
             throw new LixeiroException("ERROR - Data inválida: 'Favor selecionar a data de nascimento correta'");
         }
         lixeiro.setDataNascimento(dataDeNascimento);
@@ -157,7 +158,7 @@ public class ValidateLixeiro {
         lixeiro.setSexta((boolean) diasTrabalhados.get(4));
         lixeiro.setSabado((boolean) diasTrabalhados.get(5));
         lixeiro.setDomingo((boolean) diasTrabalhados.get(6));
-        
+        lixeiro.setPrefeitura(prefeitura);
         
         return lixeiro;
         

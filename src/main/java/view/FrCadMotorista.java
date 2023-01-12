@@ -22,6 +22,7 @@ public class FrCadMotorista extends javax.swing.JFrame {
     ArrayList<Motorista> lst = new ArrayList();
     MotoristaController motoristaController;
     int idMotoristaEditando;
+    int idPrefeitura;
 
     /**
      * Creates new form FrCadMotorista
@@ -469,7 +470,7 @@ public class FrCadMotorista extends javax.swing.JFrame {
             this.limparCampos();
             this.habDesCampos(true);
             this.preencherCampos(motoristaEditando);
-            motoristaEditando.getId();
+            idMotoristaEditando = motoristaEditando.getId();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

@@ -6,21 +6,26 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ManyToAny;
 
 /**
  *
  * @author mateu
  */
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-//@Entity
+@Entity
 @AllArgsConstructor
 @Getter
 @Setter
@@ -35,6 +40,18 @@ public class Prefeitura implements Serializable{
     public String telefone;
     public Date dataDeCadastro;
     public String email;
+    
+    @OneToMany(mappedBy = "prefeitura", cascade = CascadeType.ALL)
+    List<Lixeiro> lixeiros;
+    
+    @OneToMany(mappedBy = "prefeitura", cascade =  CascadeType.ALL)
+    List<Motorista> motoristas;
+    
+    @OneToMany(mappedBy = "prefeitura", cascade = CascadeType.ALL)
+    List<Rota> rotas;
+    
+    @OneToMany(mappedBy = "prefeitura", cascade = CascadeType.ALL)
+    List<Material> materiais;
     
     public Prefeitura(){
         this.id = -1;

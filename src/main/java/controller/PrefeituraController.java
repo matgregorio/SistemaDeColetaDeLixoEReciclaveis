@@ -41,7 +41,7 @@ public class PrefeituraController {
             Login login = new Login();
             login.setCpf(cnpj);
             login.setSenha(senha);
-            login.setTipoDeUsuario(1);
+            login.setTipoDeUsuario(3);
             login.setId_usuario(ultimoId);
             repositorioLogin.save(login);
             

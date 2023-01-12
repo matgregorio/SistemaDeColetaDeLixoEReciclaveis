@@ -21,11 +21,12 @@ public class FrCadMaterial extends javax.swing.JFrame {
     ArrayList<Material> lst = new ArrayList();
     MaterialController materialController;
     int idMaterialEditando;
+    static int idPrefeitura;
 
-    public FrCadMaterial() {
+    public FrCadMaterial(int idPrefeituraa) {
         initComponents();
         materialController = new MaterialController();
-        materialController.atualizarTabela(grdMaterial);
+        materialController.atualizarTabela(grdMaterial, idPrefeituraa);
         this.HabDesCampos(false);
     }
 
@@ -177,9 +178,7 @@ public class FrCadMaterial extends javax.swing.JFrame {
                                 .addComponent(edtCodigoMaterial)
                                 .addGap(39, 39, 39)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSalvar))
+                            .addComponent(btnSalvar)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addComponent(lblDescricao)
@@ -205,10 +204,11 @@ public class FrCadMaterial extends javax.swing.JFrame {
                     .addComponent(btnExcluir)
                     .addComponent(btnSalvar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtMaterialReciclavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(edtMaterialReciclavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -256,7 +256,7 @@ public class FrCadMaterial extends javax.swing.JFrame {
             this.LimparCampos();
             this.HabDesCampos(true);
             this.PreencherCampos(materialEditando);
-            materialEditando.getId();
+            idMaterialEditando = materialEditando.getId();
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -277,7 +277,7 @@ public class FrCadMaterial extends javax.swing.JFrame {
                        "Confirmação de exclusão", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,options, options[0]);
                if(opcao == 0){
                         materialController.excluirLixeiro(materialEditando);
-                        materialController.atualizarTabela(grdMaterial);
+                        materialController.atualizarTabela(grdMaterial, idPrefeitura);
                         JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso");
                }else if(opcao == 1){
                         JOptionPane.showMessageDialog(this, "Exclusão cancelada!");
@@ -292,13 +292,13 @@ public class FrCadMaterial extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try{
             if(idMaterialEditando > 0){
-                materialController.atualizarMaterial(idMaterialEditando, edtNome.getText(), edtDescricao.getText(),edtUnidadeDeMedida.getText(),edtMaterialReciclavel.getState(), Integer.parseInt(edtCodigoMaterial.getText()));
+                materialController.atualizarMaterial(idMaterialEditando, edtNome.getText(), edtDescricao.getText(),edtUnidadeDeMedida.getText(),edtMaterialReciclavel.getState(), Integer.parseInt(edtCodigoMaterial.getText()), idPrefeitura);
             }else {
                 int codigoMaterial = Integer.parseInt(edtCodigoMaterial.getText());
-                materialController.cadastrarMaterial(idMaterialEditando,edtNome.getText(),edtDescricao.getText(),edtUnidadeDeMedida.getText(),edtMaterialReciclavel.getState(), codigoMaterial);
+                materialController.cadastrarMaterial(idMaterialEditando,edtNome.getText(),edtDescricao.getText(),edtUnidadeDeMedida.getText(),edtMaterialReciclavel.getState(), codigoMaterial, idPrefeitura);
             }
             
-            materialController.atualizarTabela(grdMaterial);
+            materialController.atualizarTabela(grdMaterial, idPrefeitura);
             
         }catch(MaterialException e){
             System.err.println(e.getMessage());
@@ -341,7 +341,7 @@ public class FrCadMaterial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrCadMaterial().setVisible(true);
+                new FrCadMaterial(idPrefeitura).setVisible(true);
             }
         });
     }

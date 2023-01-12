@@ -43,13 +43,13 @@ public class TMCadMaterial extends AbstractTableModel{
            case COL_NOME:
                return "Nome";
            case COL_CODIGOMATERIAL:
-               return "CPF";
+               return "Codigo";
            case COL_UNIDADEDEMEDIDA:
-               return "Email";
+               return "Unidade de Medida";
            case COL_RECICLAVEL:
-               return "Data de Nascimento";
+               return "Reciclável?";
            case COL_DESCRICAO:
-               return "Remuneração Mensal";
+               return "Descrição";
            default:
                break;
        }

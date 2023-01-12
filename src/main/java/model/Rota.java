@@ -5,10 +5,14 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -35,9 +39,18 @@ public class Rota {
     private Integer idMaterial;
     private Double qntMaterial;
     private Date horaDeSaida;
-    private Date horaDeEntrada;
-    private Integer idMotorista;
-    private Integer idLixeiro;
+    
+    @ManyToOne
+    @JoinColumn(name= "prefeitura_id")
+    private Prefeitura prefeitura;
+    
+    @ManyToOne
+    @JoinColumn(name= "lixeiro_id")
+    private Lixeiro lixeiro;
+    
+    @ManyToOne
+    @JoinColumn(name = "motorista_id")
+    private Motorista motorista;
     
     public Rota(){
         this.id = -1;
@@ -45,9 +58,6 @@ public class Rota {
         this.pontoDeOrigem = "";
         this.idMaterial = -1;
         this.horaDeSaida = new Date();
-        this.horaDeEntrada = new Date();
         this.qntMaterial = 0.0;
-        this.idMotorista = -1;
-        this.idLixeiro = -1;
     }
 }

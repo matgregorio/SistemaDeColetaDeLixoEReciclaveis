@@ -10,9 +10,7 @@ package view;
  */
 public class FrMotorista extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrMotorista
-     */
+    public int idMotorista;
     public FrMotorista() {
         initComponents();
     }

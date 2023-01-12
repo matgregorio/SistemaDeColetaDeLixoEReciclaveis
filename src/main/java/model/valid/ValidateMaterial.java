@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import model.Material;
+import model.Prefeitura;
 import model.exceptions.MaterialException;
 
 /**
@@ -15,7 +16,7 @@ import model.exceptions.MaterialException;
  * @author mateu
  */
 public class ValidateMaterial {
-    public Material validaCamposEntrada(String nome, String descricao, String unidadeDeMedida, boolean materialReciclavel, int codigoMaterial){
+    public Material validaCamposEntrada(String nome, String descricao, String unidadeDeMedida, boolean materialReciclavel, int codigoMaterial, Prefeitura prefeitura){
         Material material = new Material();
         
         //PARTE QUE VERIFICA CAMPO DE NOME
@@ -32,7 +33,7 @@ public class ValidateMaterial {
         material.setUnidadeDeMedida(unidadeDeMedida);
         material.setMaterialReciclavel(materialReciclavel);
         material.setCodigoMaterial(codigoMaterial);
-        
+        material.setPrefeitura(prefeitura);
         
         return material;
         

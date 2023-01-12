@@ -118,14 +118,17 @@ public class FrLogin extends javax.swing.JFrame {
         }
         if(loginNovo.getTipoDeUsuario() == 1){// lixeiro
             FrLixeiro telaLixeiro = new FrLixeiro();
+            telaLixeiro.idLixeiro = loginNovo.getId_usuario();
             telaLixeiro.setVisible(true);
             this.setVisible(false);
         }if(loginNovo.getTipoDeUsuario() == 2){// motorista
             FrMotorista telaMotorista = new FrMotorista();
+            telaMotorista.idMotorista = loginNovo.getId_usuario();
             telaMotorista.setVisible(true);
             this.setVisible(false);
         }if(loginNovo.getTipoDeUsuario() == 3){//prefeitura
             FrPrefeitura telaPrefeitura = new FrPrefeitura();
+            telaPrefeitura.idPrefeitura = loginNovo.getId_usuario();
             telaPrefeitura.setVisible(true);
             this.setVisible(false);
         }if(loginNovo.getTipoDeUsuario() == 4){//admin principal

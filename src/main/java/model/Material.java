@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,6 +34,10 @@ public class Material {
     private String unidadeDeMedida;
     private boolean materialReciclavel;
     private int codigoMaterial;
+    
+    @ManyToOne
+    @JoinColumn(name= "prefeitura_id")
+    private Prefeitura prefeitura;
     
     public Material(){
         this.id = -1;

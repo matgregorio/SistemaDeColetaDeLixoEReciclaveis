@@ -119,7 +119,7 @@ public class ValidateMotorista {
         dataNasc.setTime(dataDeNascimento);
         dataNasc.add(Calendar.YEAR, 18);
         Calendar dataAtual = Calendar.getInstance();
-        if(dataNasc.before(dataAtual)){
+        if(dataNasc.compareTo(dataAtual) == 1){
             throw new MotoristaException("ERROR - Data inválida: 'Favor selecionar a data de nascimento correta'");
         }
         motorista.setDataNascimento(dataDeNascimento);

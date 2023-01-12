@@ -10,9 +10,7 @@ package view;
  */
 public class FrLixeiro extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrLixeiro
-     */
+    public int idLixeiro;
     public FrLixeiro() {
         initComponents();
     }

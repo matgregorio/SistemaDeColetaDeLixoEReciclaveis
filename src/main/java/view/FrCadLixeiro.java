@@ -25,16 +25,18 @@ public class FrCadLixeiro extends javax.swing.JFrame {
     ArrayList<Lixeiro> lst = new ArrayList();
     LixeiroController lixeiroController;
     int idLixeiroEditando;
+    static int idPrefeitura;
     /**
      * Creates new form FrCadFuncionario
      */
-    public FrCadLixeiro() {
+    public FrCadLixeiro(int idPrefeituraa) {
         initComponents();
         lixeiroController = new LixeiroController();
-        lixeiroController.atualizarTabela(grdLixeiro);
+        lixeiroController.atualizarTabela(grdLixeiro, idPrefeituraa);
         this.PreencheHoras();
         this.PreencheMinutos();
         this.DesabilitarCampos();
+        System.out.println("id prefeitura " + idPrefeituraa);
     }
     
     public void DesabilitarCampos(){
@@ -509,13 +511,13 @@ public class FrCadLixeiro extends javax.swing.JFrame {
                 diasTrabalhados.add(edtDomingo.getState());
                 Double remuneracao = Double.parseDouble(edtRemuneracao.getText());
             if(idLixeiroEditando > 0){
-                lixeiroController.atualizarLixeiro(idLixeiroEditando, edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, diasTrabalhados);
+                lixeiroController.atualizarLixeiro(idLixeiroEditando, edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, diasTrabalhados, idPrefeitura);
             }else {
                 String senha = GeradorDeSenha.geradorDeSenha(); 
-                lixeiroController.cadastrarLixeiro(idLixeiroEditando,edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, senha, diasTrabalhados);
+                lixeiroController.cadastrarLixeiro(idLixeiroEditando,edtNome.getText(), edtEmail.getText(),edtCpf.getText(),edtSexo.getText(), edtDataNascimento.getDate(), remuneracao, horaInicio, horaFim, senha, diasTrabalhados, idPrefeitura);
             }
             
-            lixeiroController.atualizarTabela(grdLixeiro);
+            lixeiroController.atualizarTabela(grdLixeiro, idPrefeitura);
             
         }catch(LixeiroException e){
             System.err.println(e.getMessage());
@@ -617,7 +619,7 @@ public class FrCadLixeiro extends javax.swing.JFrame {
             this.LimparCampos();
             this.HabilitarCampos();
             this.preencherCampos(lixeiroEditando);
-            lixeiroEditando.getId();
+            idLixeiroEditando = lixeiroEditando.getId();
         }
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -633,7 +635,7 @@ public class FrCadLixeiro extends javax.swing.JFrame {
                        "Confirmação de exclusão", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null,options, options[0]);
                if(opcao == 0){
                         lixeiroController.excluirLixeiro(lixeiroEditando);
-                        lixeiroController.atualizarTabela(grdLixeiro);
+                        lixeiroController.atualizarTabela(grdLixeiro, idPrefeitura);
                         JOptionPane.showMessageDialog(this, "Exclusão feita com sucesso");
                }else if(opcao == 1){
                         JOptionPane.showMessageDialog(this, "Exclusão cancelada!");
@@ -676,7 +678,7 @@ public class FrCadLixeiro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrCadLixeiro().setVisible(true);
+                new FrCadLixeiro(idPrefeitura).setVisible(true);
             }
         });
     }

@@ -40,13 +40,6 @@ public class MaterialDao {
         this.entityManager.getTransaction().commit();
     }
     
-    public int ultimoRegistro(){
-        List<Material> lst = this.findAll();
-        int tamanhoLista = lst.size() - 1;
-        Material ultimoLixeiro = lst.get(tamanhoLista);
-        return ultimoLixeiro.getId();
-    }
-    
     public Material find(int id){
         sql = " SELECT m "
                 + " FROM Material m"
@@ -62,10 +55,12 @@ public class MaterialDao {
         }              
     }
     
-    public List<Material> findAll(){
+    public List<Material> findAll(int idPrefeitura){
         sql = " SELECT m "
-                + " FROM Material m ";
+                + " FROM Material m " + 
+                " HHERE prefeitura_id = :idPrefeitura";
         qry = this.entityManager.createQuery(sql);
+        qry.setParameter("idPrefeitura", idPrefeitura);
         
         List lst = qry.getResultList();
         

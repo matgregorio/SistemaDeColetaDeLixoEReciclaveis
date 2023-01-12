@@ -4,15 +4,15 @@
  */
 package view;
 
+import model.Prefeitura;
+
 /**
  *
  * @author mateu
  */
 public class FrPrefeitura extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrPrefeitura
-     */
+    int idPrefeitura;
     public FrPrefeitura() {
         initComponents();
     }
@@ -107,24 +107,28 @@ public class FrPrefeitura extends javax.swing.JFrame {
 
     private void btnCadastrarMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMotoristaActionPerformed
         FrCadMotorista frCadMotorista = new FrCadMotorista();
+        frCadMotorista.idPrefeitura = this.idPrefeitura;
         frCadMotorista.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnCadastrarMotoristaActionPerformed
 
     private void btnCadastrarLixeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarLixeiroActionPerformed
-        FrCadLixeiro frCadLixeiro = new FrCadLixeiro();
+        FrCadLixeiro frCadLixeiro = new FrCadLixeiro(this.idPrefeitura);
+        frCadLixeiro.idPrefeitura = this.idPrefeitura;
         frCadLixeiro.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnCadastrarLixeiroActionPerformed
 
     private void btnCadastrarRotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarRotaActionPerformed
-        FrCadRota frCadRota = new FrCadRota();
+        FrCadRota frCadRota = new FrCadRota(this.idPrefeitura);
+        frCadRota.idPrefeitura = this.idPrefeitura;
         frCadRota.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnCadastrarRotaActionPerformed
 
     private void btnCadastrarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMaterialActionPerformed
-        FrCadMaterial frCadMaterial = new FrCadMaterial();
+        FrCadMaterial frCadMaterial = new FrCadMaterial(this.idPrefeitura);
+        frCadMaterial.idPrefeitura = this.idPrefeitura;
         frCadMaterial.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnCadastrarMaterialActionPerformed

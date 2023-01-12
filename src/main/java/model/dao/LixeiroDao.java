@@ -41,8 +41,8 @@ public class LixeiroDao {
         this.entityManager.getTransaction().commit();
     }
     
-    public int ultimoRegistro(){
-        List<Lixeiro> lst = this.findAll();
+    public int ultimoRegistro(int prefeitura){
+        List<Lixeiro> lst = this.findAll(prefeitura);
         int tamanhoLista = lst.size() - 1;
         Lixeiro ultimoLixeiro = lst.get(tamanhoLista);
         return ultimoLixeiro.getId();
@@ -63,10 +63,12 @@ public class LixeiroDao {
         }              
     }
     
-    public List<Lixeiro> findAll(){
+    public List<Lixeiro> findAll(int idPrefeitura){
         sql = " SELECT l "
-                + " FROM Lixeiro l ";
+                + " FROM Lixeiro l " + 
+                " WHERE prefeitura_id = :idPrefeitura ";
         qry = this.entityManager.createQuery(sql);
+        qry.setParameter("idPrefeitura", idPrefeitura);
         
         List lst = qry.getResultList();
         
