@@ -4,6 +4,12 @@
  */
 package view;
 
+import controller.DepositoController;
+import controller.MaterialController;
+import java.util.ArrayList;
+import model.Material;
+import model.dao.DepositoDao;
+
 /**
  *
  * @author Mateus
@@ -13,8 +19,28 @@ public class FrCadDeposito extends javax.swing.JFrame {
     /**
      * Creates new form FrCadDeposito
      */
-    public FrCadDeposito() {
+    static int idPrefeitura;
+    int idDepositoEditando;
+    MaterialController materialController;
+    DepositoController depositoController;
+    DepositoDao depositoDao;
+    ArrayList<Material> lstMaterial = new ArrayList();
+
+    public FrCadDeposito(int idPrefeituraa) {
         initComponents();
+        materialController = new MaterialController();
+        depositoController = new DepositoController();
+        depositoController.atualizarTabela(grdDeposito, idPrefeituraa);
+        depositoDao = new DepositoDao();
+        lstMaterial = (ArrayList<Material>) materialController.atualizarListaMateriaisAceitos(idPrefeituraa);
+        edtMateriais.addItem("");
+        edtMaterial2.addItem("");
+        edtMaterial3.addItem("");
+        for (int i = 0; i < lstMaterial.size(); i++) {
+            edtMateriais.addItem(lstMaterial.get(i).getNome());
+            edtMaterial2.addItem(lstMaterial.get(i).getNome());
+            edtMaterial3.addItem(lstMaterial.get(i).getNome());
+        }
     }
 
     /**
@@ -26,6 +52,8 @@ public class FrCadDeposito extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
         btnNew = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -38,48 +66,79 @@ public class FrCadDeposito extends javax.swing.JFrame {
         edtMateriais = new javax.swing.JComboBox<>();
         edtMaterial2 = new javax.swing.JComboBox<>();
         edtMaterial3 = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        grdDeposito = new javax.swing.JTable();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Cadastro de Deposito de Lixo e Reciclaveis");
 
+        btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetoColetaDeLixoImagens/novo_32x32.png"))); // NOI18N
         btnNew.setText("Novo");
 
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetoColetaDeLixoImagens/edit3_32x32.png"))); // NOI18N
         btnEdit.setText("Editar");
 
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetoColetaDeLixoImagens/cancel_32x32.png"))); // NOI18N
         btnCancel.setText("Cancelar");
 
+        btnDelet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetoColetaDeLixoImagens/del_32x32.png"))); // NOI18N
         btnDelet.setText("Excluir");
 
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetoColetaDeLixoImagens/save_32x32.png"))); // NOI18N
         btnSave.setText("Salvar");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         lblNome.setText("Nome do depósito:");
 
         lblMaterial.setText("Material Aceito:");
 
-        edtMateriais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        edtMaterial2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        edtMaterial3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        grdDeposito.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(grdDeposito);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNew)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEdit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelet)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSave)))
+                .addComponent(btnNew)
+                .addGap(18, 18, 18)
+                .addComponent(btnEdit)
+                .addGap(12, 12, 12)
+                .addComponent(btnCancel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDelet)
+                .addGap(18, 18, 18)
+                .addComponent(btnSave)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -93,12 +152,14 @@ public class FrCadDeposito extends javax.swing.JFrame {
                         .addComponent(edtMaterial3, javax.swing.GroupLayout.Alignment.LEADING, 0, 155, Short.MAX_VALUE)
                         .addComponent(edtMaterial2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(edtMateriais, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(336, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNew)
@@ -118,11 +179,30 @@ public class FrCadDeposito extends javax.swing.JFrame {
                 .addComponent(edtMaterial2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtMaterial3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 131, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+         ArrayList<Material> materiais = new ArrayList();
+            materiais.add(lstMaterial.get(edtMateriais.getSelectedIndex() - 1));
+            if(edtMaterial2.getSelectedItem() != ""){
+                materiais.add(lstMaterial.get(edtMaterial2.getSelectedIndex() - 1));
+            }
+            if(edtMaterial3.getSelectedItem() != ""){
+                materiais.add(lstMaterial.get(edtMaterial3.getSelectedIndex() - 1));
+            }
+        if(idDepositoEditando > 0){
+            depositoController.atualizarDeposito(idDepositoEditando, edtNome.getText(), materiais, idPrefeitura);   
+        }else{
+            depositoController.cadastrarDeposito(idDepositoEditando,edtNome.getText(), materiais, idPrefeitura);
+        }
+        depositoController.atualizarTabela(grdDeposito, idPrefeitura);
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,7 +234,7 @@ public class FrCadDeposito extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrCadDeposito().setVisible(true);
+                new FrCadDeposito(idPrefeitura).setVisible(true);
             }
         });
     }
@@ -169,6 +249,10 @@ public class FrCadDeposito extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> edtMaterial2;
     private javax.swing.JComboBox<String> edtMaterial3;
     private javax.swing.JTextField edtNome;
+    private javax.swing.JTable grdDeposito;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblMaterial;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTitulo;

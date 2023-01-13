@@ -17,9 +17,9 @@ public class TMCadRota extends AbstractTableModel{
     
     private final int COL_PONTODEORIGEM = 0;
     private final int COL_PONTODEDESTINO = 1;
-    private final int COL_QNTMATERIAL = 2;
-    private final int COL_HORADESAIDA = 3;
-    private final int COL_HORADEENTRADA = 4;
+    private final int COL_MATERIAL = 2;
+    private final int COL_QUANTIDADEMATERIAL = 3;
+    private final int COL_DATA = 4;
     
     public TMCadRota(List<Rota> lstRotas){
         lista = lstRotas;
@@ -42,11 +42,11 @@ public class TMCadRota extends AbstractTableModel{
                return "Ponto de Origem";
            case COL_PONTODEDESTINO:
                return "Ponto de Destino";
-           case COL_QNTMATERIAL:
+           case COL_MATERIAL:
                return "Material";
-           case COL_HORADESAIDA:
+           case COL_QUANTIDADEMATERIAL:
                return "Hora de Saida";
-           case COL_HORADEENTRADA:
+           case COL_DATA:
                return "Hora de Entrada";
            default:
                break;
@@ -68,13 +68,13 @@ public class TMCadRota extends AbstractTableModel{
             case COL_PONTODEORIGEM:
                 return aux.getPontoDeOrigem();
             case COL_PONTODEDESTINO:
-                return aux.getPontoDeDestino();
-            case COL_QNTMATERIAL:
-                return aux.getQntMaterial();
-            case COL_HORADESAIDA:
-                return aux.getHoraDeEntrada();
-            case COL_HORADEENTRADA:
-                return aux.getHoraDeSaida();
+                return aux.getDeposito().getNome();
+            case COL_MATERIAL:
+                return aux.getMaterial().getNome();
+            case COL_QUANTIDADEMATERIAL:
+                return aux.getQntMaterial() + aux.getMaterial().getUnidadeDeMedida();
+            case COL_DATA:
+                return aux.getDataRota();
             default:
                 break;
         }

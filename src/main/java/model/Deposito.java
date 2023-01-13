@@ -41,5 +41,11 @@ public class Deposito implements Serializable{
     @JoinTable(name="deposito_material", joinColumns = 
             {@JoinColumn(name="deposito_id")},inverseJoinColumns=
                     {@JoinColumn(name="material_id")})
-    List<Material> material;
+       //@ManyToMany(mappedBy = "deposito")
+    private List<Material> material;
+    
+    public Deposito(){
+        this.id = -1;
+        this.nome = "";
+    }
 }

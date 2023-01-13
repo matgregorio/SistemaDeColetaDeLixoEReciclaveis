@@ -58,7 +58,7 @@ public class MaterialDao {
     public List<Material> findAll(int idPrefeitura){
         sql = " SELECT m "
                 + " FROM Material m " + 
-                " HHERE prefeitura_id = :idPrefeitura";
+                " WHERE prefeitura_id = :idPrefeitura";
         qry = this.entityManager.createQuery(sql);
         qry.setParameter("idPrefeitura", idPrefeitura);
         

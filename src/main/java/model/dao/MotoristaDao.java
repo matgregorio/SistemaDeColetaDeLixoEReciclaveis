@@ -40,8 +40,8 @@ public class MotoristaDao {
         this.entityManager.getTransaction().commit();
     }
     
-    public int ultimoRegistro(){
-        List<Motorista> lst = this.findAll();
+    public int ultimoRegistro(int idPrefeitura){
+        List<Motorista> lst = this.findAll(idPrefeitura);
         int tamanhoLista = lst.size() - 1;
         Motorista ultimoMotorista = lst.get(tamanhoLista);
         return ultimoMotorista.getId();
@@ -62,10 +62,12 @@ public class MotoristaDao {
         }              
     }
     
-    public List<Motorista> findAll(){
+    public List<Motorista> findAll(int idPrefeitura){
         sql = " SELECT M "
-                + " FROM Motorista M ";
+                + " FROM Motorista M "
+                + " WHERE Prefeitura_id = :idPrefeitura";
         qry = this.entityManager.createQuery(sql);
+        qry.setParameter("idPrefeitura", idPrefeitura);
         
         List lst = qry.getResultList();
         

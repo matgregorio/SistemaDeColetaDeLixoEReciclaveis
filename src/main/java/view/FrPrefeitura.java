@@ -32,6 +32,7 @@ public class FrPrefeitura extends javax.swing.JFrame {
         btnCadastrarMaterial = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnGerarRelatorios = new javax.swing.JButton();
+        btnCadastrarDeposito = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,6 +70,13 @@ public class FrPrefeitura extends javax.swing.JFrame {
 
         btnGerarRelatorios.setText("Gerar Relatórios");
 
+        btnCadastrarDeposito.setText("Cadastrar Depósito");
+        btnCadastrarDeposito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarDepositoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,7 +84,9 @@ public class FrPrefeitura extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnCadastrarLixeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCadastrarDeposito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnCadastrarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnCadastrarMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -96,17 +106,19 @@ public class FrPrefeitura extends javax.swing.JFrame {
                     .addComponent(btnCadastrarRota, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerarRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrarLixeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(115, 115, 115))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnCadastrarLixeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCadastrarMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCadastrarDeposito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarMotoristaActionPerformed
-        FrCadMotorista frCadMotorista = new FrCadMotorista();
+        FrCadMotorista frCadMotorista = new FrCadMotorista(this.idPrefeitura);
         frCadMotorista.idPrefeitura = this.idPrefeitura;
         frCadMotorista.setVisible(true);
         this.setVisible(false);
@@ -132,6 +144,13 @@ public class FrPrefeitura extends javax.swing.JFrame {
         frCadMaterial.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnCadastrarMaterialActionPerformed
+
+    private void btnCadastrarDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarDepositoActionPerformed
+        FrCadDeposito frCadDeposito = new FrCadDeposito(this.idPrefeitura);
+        frCadDeposito.idPrefeitura = this.idPrefeitura;
+        frCadDeposito.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCadastrarDepositoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,6 +188,7 @@ public class FrPrefeitura extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadastrarDeposito;
     private javax.swing.JButton btnCadastrarLixeiro;
     private javax.swing.JButton btnCadastrarMaterial;
     private javax.swing.JButton btnCadastrarMotorista;

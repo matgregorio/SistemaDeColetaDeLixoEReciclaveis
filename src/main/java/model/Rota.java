@@ -35,10 +35,8 @@ public class Rota {
     
     private Integer id;
     private String pontoDeOrigem;
-    private String pontoDeDestino;
-    private Integer idMaterial;
     private Double qntMaterial;
-    private Date horaDeSaida;
+    private Date dataRota;
     
     @ManyToOne
     @JoinColumn(name= "prefeitura_id")
@@ -52,12 +50,18 @@ public class Rota {
     @JoinColumn(name = "motorista_id")
     private Motorista motorista;
     
+    @ManyToOne
+    @JoinColumn(name = "deposito_id")
+    private Deposito deposito;
+    
+    @ManyToOne
+    @JoinColumn(name = "material_id")
+    private Material material;
+    
     public Rota(){
         this.id = -1;
-        this.pontoDeDestino = "";
         this.pontoDeOrigem = "";
-        this.idMaterial = -1;
-        this.horaDeSaida = new Date();
+        this.dataRota = new Date();
         this.qntMaterial = 0.0;
     }
 }

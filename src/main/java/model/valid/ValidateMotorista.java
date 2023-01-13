@@ -7,6 +7,7 @@ package model.valid;
 import java.util.Calendar;
 import java.util.Date;
 import model.Motorista;
+import model.Prefeitura;
 import model.exceptions.MotoristaException;
 
 /**
@@ -81,7 +82,7 @@ public class ValidateMotorista {
     }
     
     public Motorista validaCamposEntrada(String nome, String cpf, String email, String sexo,Date dataDeNascimento, 
-            Double remuneracaoMensal, Date horaDeEntrada, Date horaDeSaida, String tipoDeCarteira/*, ArrayList diasTrabalhados*/){
+            Double remuneracaoMensal, Date horaDeEntrada, Date horaDeSaida, String tipoDeCarteira/*, ArrayList diasTrabalhados*/, Prefeitura prefeitura){
         Motorista motorista = new Motorista();
         
 //        //PARTE QUE VERIFICA CAMPO DE NOME
@@ -153,7 +154,7 @@ public class ValidateMotorista {
 //        }
 //        motorista.setDiasTrabalhados(diasTrabalhados);
         
-        
+        motorista.setPrefeitura(prefeitura);
         return motorista;
         
     }

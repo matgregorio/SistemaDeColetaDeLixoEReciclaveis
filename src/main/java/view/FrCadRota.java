@@ -4,10 +4,16 @@
  */
 package view;
 
+import controller.DepositoController;
 import controller.LixeiroController;
+import controller.MaterialController;
 import controller.MotoristaController;
+import controller.RotaController;
 import java.util.ArrayList;
+import java.util.List;
+import model.Deposito;
 import model.Lixeiro;
+import model.Material;
 import model.Motorista;
 
 /**
@@ -16,29 +22,46 @@ import model.Motorista;
  */
 public class FrCadRota extends javax.swing.JFrame {
 
-     ArrayList<Motorista> lstMotorista = new ArrayList();
-     MotoristaController motoristaController;
-     ArrayList<Lixeiro> lstLixeiro = new ArrayList();
-     LixeiroController lixeiroController;
-     int idRodaEditando;
-     int idPrefeitura;
+    ArrayList<Motorista> lstMotorista = new ArrayList();
+    MotoristaController motoristaController;
+    ArrayList<Lixeiro> lstLixeiro = new ArrayList();
+    LixeiroController lixeiroController;
+    ArrayList<Material> lstMaterial = new ArrayList();
+    MaterialController materialController;
+    DepositoController depositoController;
+    ArrayList<Deposito> lstDeposito = new ArrayList();
+    ArrayList<Deposito> lstFiltrada = new ArrayList();
+    int idRotaEditando;
+    static int idPrefeitura;
+    RotaController rotaController;
+
     /**
      * Creates new form FrCadRota
      */
-    public FrCadRota() {
+    public FrCadRota(int idPrefeituraa) {
         initComponents();
+        rotaController = new RotaController();
         motoristaController = new MotoristaController();
-        lstMotorista = (ArrayList<Motorista>) motoristaController.atualizaMotoristas();
+        lstMotorista = (ArrayList<Motorista>) motoristaController.atualizaMotoristas(idPrefeituraa);
         edtMotorista.addItem("");
-        for(int i = 0; i < lstMotorista.size(); i++){
+        for (int i = 0; i < lstMotorista.size(); i++) {
             edtMotorista.addItem(lstMotorista.get(i).getNome());
         }
         lixeiroController = new LixeiroController();
-        lstLixeiro = (ArrayList<Lixeiro>) lixeiroController.atualizaLixeiros();
+        lstLixeiro = (ArrayList<Lixeiro>) lixeiroController.atualizaLixeiros(idPrefeituraa);
         edtLixeiro.addItem("");
-        for(int i = 0; i < lstLixeiro.size(); i++){
+        for (int i = 0; i < lstLixeiro.size(); i++) {
             edtLixeiro.addItem(lstLixeiro.get(i).getNome());
         }
+        materialController = new MaterialController();
+        edtMaterial.addItem("");
+        lstMaterial = (ArrayList<Material>) materialController.atualizarListaMateriaisAceitos(idPrefeituraa);
+        for (int i = 0; i < lstMaterial.size(); i++) {
+            edtMaterial.addItem(lstMaterial.get(i).getNome());
+        }
+        depositoController = new DepositoController();
+        lstDeposito = (ArrayList<Deposito>) depositoController.atualizaDepositos(idPrefeituraa);
+        rotaController.atualizarTabela(grdRota, idPrefeituraa);
     }
 
     /**
@@ -59,7 +82,6 @@ public class FrCadRota extends javax.swing.JFrame {
         lblOrigem = new javax.swing.JLabel();
         edtOrigem = new javax.swing.JTextField();
         lblDestino = new javax.swing.JLabel();
-        edtDestino = new javax.swing.JTextField();
         lblMaterial = new javax.swing.JLabel();
         edtMaterial = new javax.swing.JComboBox<>();
         lblQuantidadeMaterial = new javax.swing.JLabel();
@@ -69,6 +91,10 @@ public class FrCadRota extends javax.swing.JFrame {
         lblData = new javax.swing.JLabel();
         lblLixeiro = new javax.swing.JLabel();
         edtLixeiro = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        grdRota = new javax.swing.JTable();
+        edtData = new com.toedter.calendar.JDateChooser();
+        edtDestino = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,15 +102,30 @@ public class FrCadRota extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cadastro de Rota");
 
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetoColetaDeLixoImagens/novo_32x32.png"))); // NOI18N
         btnNovo.setText("Novo");
 
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetoColetaDeLixoImagens/edit3_32x32.png"))); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetoColetaDeLixoImagens/cancel_32x32.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
 
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetoColetaDeLixoImagens/del_32x32.png"))); // NOI18N
         btnExcluir.setText("Excluir");
 
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/projetoColetaDeLixoImagens/save_32x32.png"))); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         lblOrigem.setText("Origem");
 
@@ -92,7 +133,21 @@ public class FrCadRota extends javax.swing.JFrame {
 
         lblMaterial.setText("Material");
 
-        edtMaterial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        edtMaterial.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                edtMaterialItemStateChanged(evt);
+            }
+        });
+        edtMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                edtMaterialMouseClicked(evt);
+            }
+        });
+        edtMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtMaterialActionPerformed(evt);
+            }
+        });
 
         lblQuantidadeMaterial.setText("Quantidade de Material");
 
@@ -107,6 +162,19 @@ public class FrCadRota extends javax.swing.JFrame {
         lblData.setText("Data");
 
         lblLixeiro.setText("Lixeiro");
+
+        grdRota.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(grdRota);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,43 +192,45 @@ public class FrCadRota extends javax.swing.JFrame {
                         .addComponent(lblMotorista)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(edtMotorista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnNovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExcluir)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSalvar)
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblOrigem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNovo)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEditar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnExcluir)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSalvar))
+                                .addComponent(lblMaterial)
+                                .addGap(3, 3, 3)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(lblOrigem)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblMaterial)
-                                        .addGap(3, 3, 3)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(edtMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblQuantidadeMaterial)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(edtQuantidadeMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblData))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(edtOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblDestino)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(edtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 98, Short.MAX_VALUE)))
+                                .addComponent(edtOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblDestino)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(edtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(edtMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblQuantidadeMaterial)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(edtQuantidadeMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblData)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(edtData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,19 +251,23 @@ public class FrCadRota extends javax.swing.JFrame {
                     .addComponent(lblDestino)
                     .addComponent(edtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMaterial)
-                    .addComponent(edtMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblQuantidadeMaterial)
-                    .addComponent(edtQuantidadeMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblData))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblMaterial)
+                        .addComponent(edtMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblQuantidadeMaterial)
+                        .addComponent(edtQuantidadeMaterial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblData))
+                    .addComponent(edtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMotorista)
                     .addComponent(edtMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLixeiro)
                     .addComponent(edtLixeiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -202,6 +276,61 @@ public class FrCadRota extends javax.swing.JFrame {
     private void edtMotoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtMotoristaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtMotoristaActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if(idRotaEditando > 0){
+            rotaController.atualizarRota(idRotaEditando, edtOrigem.getText(), 
+                    lstFiltrada.get(edtDestino.getSelectedIndex()), 
+                    lstMaterial.get(edtMaterial.getSelectedIndex()-1), 
+                    Double.parseDouble(edtQuantidadeMaterial.getText()), 
+                    edtData.getDate(), lstLixeiro.get(edtLixeiro.getSelectedIndex()), 
+                    lstMotorista.get(edtMotorista.getSelectedIndex()), idPrefeitura);
+        }else{
+            rotaController.cadastrarRota(idRotaEditando, edtOrigem.getText(), 
+                    lstFiltrada.get(edtDestino.getSelectedIndex()), 
+                    lstMaterial.get(edtMaterial.getSelectedIndex() - 1), 
+                    Double.parseDouble(edtQuantidadeMaterial.getText()), 
+                    edtData.getDate(), lstLixeiro.get(edtLixeiro.getSelectedIndex() - 1), 
+                    lstMotorista.get(edtMotorista.getSelectedIndex() - 1), idPrefeitura);
+        }
+        rotaController.atualizarTabela(grdRota, idPrefeitura);
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void edtMaterialItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_edtMaterialItemStateChanged
+
+    }//GEN-LAST:event_edtMaterialItemStateChanged
+
+    private void edtMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_edtMaterialMouseClicked
+
+    }//GEN-LAST:event_edtMaterialMouseClicked
+
+    private void edtMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtMaterialActionPerformed
+        edtDestino.removeAllItems();
+        if (edtMaterial.getSelectedIndex() != 0) {
+            lstFiltrada.clear();
+            int idMaterial = lstMaterial.get(edtMaterial.getSelectedIndex() - 1).getId();
+            System.out.println("Tamanho lista deposito " + lstDeposito.size());
+            for (int i = 0; i < lstDeposito.size(); i++) {
+                System.out.println("Passei aqui " + i + " vezes");
+                Deposito deposito = lstDeposito.get(i);
+                System.out.println("deposito.getMaterial " + deposito.getMaterial());
+                for (Material m : deposito.getMaterial()) {
+                    if (m.getId() == idMaterial) {
+                        lstFiltrada.add(deposito);
+                        edtDestino.addItem(deposito.getNome());
+                        System.out.println("cheguei dentro do if");
+                    }
+
+                }
+                //edtDestino.addItem(lstDeposito.get(i).getNome());
+            }//buscarDestinoComMateriais
+        }
+        System.out.println("opcao selecionada " + edtMaterial.getSelectedItem());
+    }//GEN-LAST:event_edtMaterialActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,7 +362,7 @@ public class FrCadRota extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrCadRota().setVisible(true);
+                new FrCadRota(idPrefeitura).setVisible(true);
             }
         });
     }
@@ -244,13 +373,16 @@ public class FrCadRota extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JTextField edtDestino;
+    private com.toedter.calendar.JDateChooser edtData;
+    private javax.swing.JComboBox<String> edtDestino;
     private javax.swing.JComboBox<String> edtLixeiro;
     private javax.swing.JComboBox<String> edtMaterial;
     private javax.swing.JComboBox<String> edtMotorista;
     private javax.swing.JTextField edtOrigem;
     private javax.swing.JTextField edtQuantidadeMaterial;
+    private javax.swing.JTable grdRota;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDestino;
     private javax.swing.JLabel lblLixeiro;

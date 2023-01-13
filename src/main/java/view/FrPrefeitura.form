@@ -26,7 +26,9 @@
           <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <Component id="btnCadastrarLixeiro" min="-2" pref="137" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnCadastrarDeposito" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnCadastrarMaterial" min="-2" pref="148" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -50,11 +52,14 @@
                   <Component id="btnGerarRelatorios" min="-2" pref="65" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnCadastrarLixeiro" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
-                  <Component id="btnCadastrarMaterial" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnCadastrarLixeiro" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
+                      <Component id="btnCadastrarMaterial" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="btnCadastrarDeposito" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
+              <EmptySpace pref="115" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -105,6 +110,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Gerar Relat&#xf3;rios"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCadastrarDeposito">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cadastrar Dep&#xf3;sito"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarDepositoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -20,6 +20,7 @@ public class SistemaDeColetaDeLixo {
 
     public static void main(String[] args) {      
         FrLogin frLixeiro = new FrLogin();
+        frLixeiro.setLocationRelativeTo(null);
         frLixeiro.setVisible(true);
         
     }
