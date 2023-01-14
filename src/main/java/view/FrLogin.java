@@ -129,7 +129,7 @@ public class FrLogin extends javax.swing.JFrame {
             telaMotorista.setVisible(true);
             this.setVisible(false);
         }if(loginNovo.getTipoDeUsuario() == 3){//prefeitura
-            FrPrefeitura telaPrefeitura = new FrPrefeitura();
+            FrPrefeitura telaPrefeitura = new FrPrefeitura(loginNovo.getId_usuario());
             telaPrefeitura.idPrefeitura = loginNovo.getId_usuario();
             telaPrefeitura.setLocationRelativeTo(null);
             telaPrefeitura.setVisible(true);

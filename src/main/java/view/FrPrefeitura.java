@@ -12,8 +12,9 @@ import model.Prefeitura;
  */
 public class FrPrefeitura extends javax.swing.JFrame {
 
-    int idPrefeitura;
-    public FrPrefeitura() {
+    static int idPrefeitura;
+    public FrPrefeitura(int idPrefeituraa) {
+        idPrefeitura = idPrefeituraa;
         initComponents();
     }
 
@@ -182,7 +183,7 @@ public class FrPrefeitura extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrPrefeitura().setVisible(true);
+                new FrPrefeitura(idPrefeitura).setVisible(true);
             }
         });
     }

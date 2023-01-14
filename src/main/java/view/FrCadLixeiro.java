@@ -17,6 +17,7 @@ import model.exceptions.LixeiroException;
 import model.gerador.GeradorDeSenha;
 import model.valid.ValidateLixeiro;
 import org.apache.commons.mail.SimpleEmail;
+import static view.FrCadMotorista.idPrefeitura;
 
 /**
  *
@@ -662,7 +663,9 @@ public class FrCadLixeiro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        // TODO add your handling code here:
+        FrPrefeitura telaPrefeitura = new FrPrefeitura(idPrefeitura);
+        telaPrefeitura.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**

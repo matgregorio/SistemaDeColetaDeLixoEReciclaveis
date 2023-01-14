@@ -576,7 +576,8 @@ public class FrCadMotorista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void bnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnVoltarActionPerformed
-        FrPrefeitura telaPrefeitura = new FrPrefeitura();
+        FrPrefeitura telaPrefeitura = new FrPrefeitura(idPrefeitura);
+        telaPrefeitura.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_bnVoltarActionPerformed
 

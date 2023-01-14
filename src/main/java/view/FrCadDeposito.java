@@ -9,6 +9,7 @@ import controller.MaterialController;
 import java.util.ArrayList;
 import model.Material;
 import model.dao.DepositoDao;
+import static view.FrCadMotorista.idPrefeitura;
 
 /**
  *
@@ -68,6 +69,7 @@ public class FrCadDeposito extends javax.swing.JFrame {
         edtMaterial3 = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         grdDeposito = new javax.swing.JTable();
+        btnVoltar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,6 +127,13 @@ public class FrCadDeposito extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(grdDeposito);
 
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,6 +164,10 @@ public class FrCadDeposito extends javax.swing.JFrame {
                 .addContainerGap(336, Short.MAX_VALUE))
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(188, 188, 188))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +194,9 @@ public class FrCadDeposito extends javax.swing.JFrame {
                 .addComponent(edtMaterial3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVoltar)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,6 +218,12 @@ public class FrCadDeposito extends javax.swing.JFrame {
         }
         depositoController.atualizarTabela(grdDeposito, idPrefeitura);
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        FrPrefeitura telaPrefeitura = new FrPrefeitura(idPrefeitura);
+        telaPrefeitura.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,6 +266,7 @@ public class FrCadDeposito extends javax.swing.JFrame {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<String> edtMateriais;
     private javax.swing.JComboBox<String> edtMaterial2;
     private javax.swing.JComboBox<String> edtMaterial3;
